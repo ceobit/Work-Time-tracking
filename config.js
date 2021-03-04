@@ -8,5 +8,5 @@ if (process.env.NODE_ENV === 'production') {
   module.exports.dbURI = process.env.dbURI;
 } else {
   module.exports.SECRET_KEY = 'secret key';
-  module.exports.dbURI = "mongodb+srv://Roman:301090@cluster0.pmym3.mongodb.net/workTime?retryWrites=true&w=majority";
+  module.exports.dbURI = dbURI;
 }
