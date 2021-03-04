@@ -1,0 +1,13 @@
+export const REGISTER_REQUEST =  'REGISTER/REQUEST';
+export const REGISTER_SUCCESS = 'REGISTER/SUCCESS';
+export const REGISTER_FAILURE = 'REGISTER/FAILURE';
+
+export const LOGIN_REQUEST = 'LOGIN/REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN/SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN/FAILURE';
+
+export const LOGOUT =  'USERS/LOGOUT';
+
+export const ALERT_SUCCESS = 'ALERT/SUCCESS';
+export const ALERT_ERROR = 'ALERT/ERROR';
+export const ALERT_CLEAR = 'ALERT/CLEAR';
