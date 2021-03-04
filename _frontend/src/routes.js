@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { AuthPage } from './components/AuthPage';
+import {RegisterPage} from './components/RegisterPage';
 
 
 export const useRoutes = (isAuth) => {
@@ -33,7 +34,8 @@ export const useRoutes = (isAuth) => {
   return (
     <Switch>
       <Route path="/" exact>
-        <AuthPage />
+        {/*<AuthPage />*/}
+        <RegisterPage/>
       </Route>
       <Redirect to="/" />
     </Switch>

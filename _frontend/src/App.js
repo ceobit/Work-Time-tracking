@@ -1,13 +1,12 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {useEffect} from 'react';
+import {BrowserRouter} from 'react-router-dom';
 import Alert from '@material-ui/lab/Alert';
 
-import { history } from './aux';
-import { useRoutes } from "./routes";
+import {history} from './aux';
+import {useRoutes} from './routes';
 import './App.css';
-import { alertActions } from './redux/actions';
-
+import {alertActions} from './redux/actions';
 
 export default () => {
   const routes = useRoutes(false); // не забыть убрать false
@@ -27,7 +26,7 @@ export default () => {
       {alert.message &&
       <Alert severity="error">{alert.message}</Alert>
       }
-        {routes}
+      {routes}
     </BrowserRouter>
   );
 }

@@ -2,14 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {useStyles} from './style';
 import {
   Container,
   CssBaseline,
-  FormControlLabel,
   TextField,
 } from '@material-ui/core';
-
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -17,9 +14,40 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 
+import {useStyles} from './style';
+import {usersActions} from '../../redux/actions';
+
 export const RegisterPage = () => {
 
   const classes = useStyles();
+
+  const [user, setUser] = useState({
+    username: '',
+    password: ''
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const {username, password} = user;
+  // const registering = useSelector(state => state.registrationReducer.registering);
+  const dispatch = useDispatch();
+
+  // reset login status
+  useEffect(() => {
+    dispatch(usersActions.logout());
+  }, []);
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setUser(user => ({ ...user, [name]: value }));
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    setSubmitted(true);
+    if (username && password) {
+      dispatch(usersActions.register(user));
+    }
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -33,39 +61,21 @@ export const RegisterPage = () => {
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-              />
-            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                label="User name"
+                name="username"
+                value={username}
+                onChange={handleChange}
               />
+              {submitted && !username &&
+              <Typography variant="subtitle2" component="h1" color="error">
+                Username is required
+              </Typography>
+              }
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -73,17 +83,17 @@ export const RegisterPage = () => {
                 required
                 fullWidth
                 name="password"
+                value={password}
                 label="Password"
                 type="password"
-                id="password"
                 autoComplete="current-password"
+                onChange={handleChange}
               />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
+              {submitted && !password &&
+              <Typography variant="subtitle2" component="h1" color="error">
+                Password is required
+              </Typography>
+              }
             </Grid>
           </Grid>
           <Button
@@ -92,6 +102,7 @@ export const RegisterPage = () => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleSubmit}
           >
             Sign Up
           </Button>
@@ -106,5 +117,4 @@ export const RegisterPage = () => {
       </div>
     </Container>
   );
-
 }

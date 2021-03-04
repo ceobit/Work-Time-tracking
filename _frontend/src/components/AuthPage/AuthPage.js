@@ -11,8 +11,8 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 
-import {usersActions} from '../../redux/actions';
 import {useStyles} from './style';
+import {usersActions} from '../../redux/actions';
 
 export const AuthPage = () => {
 
@@ -35,7 +35,7 @@ export const AuthPage = () => {
 
   const handleChange = e => {
     const {name, value} = e.target;
-    setInputs(inputs => ({...inputs, [name]: value}));
+    setInputs(inputs => ({ ...inputs, [name]: value }));
   }
 
   const handleSubmit = e => {
