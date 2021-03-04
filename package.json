@@ -1,0 +1,48 @@
+{
+  "name": "work-time-tracking",
+  "version": "1.0.0",
+  "description": "test project",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "server": "nodemon app.js",
+    "front": "npm run start --prefix _frontend webpack serve",
+    "front:install": "npm install --prefix _frontend",
+    "front:build": "npm run build --prefix _frontend",
+    "dev": "cross-env NODE_ENV=development concurrently \"npm run server\" \"npm run front\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ceobit/Work-Time-tracking.git"
+  },
+  "keywords": [
+    "JS",
+    "React",
+    "Node",
+    "JS"
+  ],
+  "author": "Roman Lebedenko <ceobit90@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ceobit/Work-Time-tracking/issues"
+  },
+  "homepage": "https://github.com/ceobit/Work-Time-tracking#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "celebrate": "^13.0.4",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.2.6",
+    "express-winston": "^4.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.18",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "concurrently": "^6.0.0",
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.7"
+  }
+}
