@@ -21,7 +21,7 @@ mongoose.connect(dbURI, {
   useCreateIndex: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
-  autoIndex: true,
+  autoIndex: false,
 });
 
 //  Успешно подключились к БД
@@ -52,10 +52,10 @@ app.use(cookieParser());
 //  логгер запросов
 // app.use(requestLogger);
 
-// app.use("/", routers);
-// app.use("*", () => {
-//   throw new NotFoundError(ResourceNotFoundMessage);
-// });
+app.use("/", routers);
+app.use("*", () => {
+  throw new NotFoundError(ResourceNotFoundMessage);
+});
 
 // логгер ошибок
 // app.use(errorLogger);

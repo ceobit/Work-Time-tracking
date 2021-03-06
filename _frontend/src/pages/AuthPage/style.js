@@ -1,11 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
+import Image from '../../images/main.jpg';
 
 export const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
   },
   image: {
-    backgroundImage: 'url(../../images/main.jpg)',
+    backgroundImage: `url(${Image})`,
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -29,4 +30,9 @@ export const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  link: {
+    padding: '15px',
+    display: 'inline-block',
+    lineHeight: '20px',
+  }
 }));

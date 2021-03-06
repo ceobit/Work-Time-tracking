@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-
-import {
-  Container,
-  CssBaseline,
-  TextField,
-} from '@material-ui/core';
+import React, {useEffect, useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {Link as RouterLink, withRouter} from 'react-router-dom';
+import {Container, CssBaseline, TextField} from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
 
 import {useStyles} from './style';
 import {usersActions} from '../../redux/actions';
@@ -23,7 +17,7 @@ export const RegisterPage = () => {
 
   const [user, setUser] = useState({
     username: '',
-    password: ''
+    password: '',
   });
   const [submitted, setSubmitted] = useState(false);
   const {username, password} = user;
@@ -36,9 +30,9 @@ export const RegisterPage = () => {
   }, []);
 
   const handleChange = e => {
-    const { name, value } = e.target;
-    setUser(user => ({ ...user, [name]: value }));
-  }
+    const {name, value} = e.target;
+    setUser(user => ({...user, [name]: value}));
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -47,14 +41,14 @@ export const RegisterPage = () => {
     if (username && password) {
       dispatch(usersActions.register(user));
     }
-  }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
+      <CssBaseline/>
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <LockOutlinedIcon/>
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
@@ -108,13 +102,11 @@ export const RegisterPage = () => {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
-                Already have an account? Sign in
-              </Link>
+              <RouterLink to="/"> {'Already have an account? Sign in'} </RouterLink>
             </Grid>
           </Grid>
         </form>
       </div>
     </Container>
   );
-}
+};

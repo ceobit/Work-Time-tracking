@@ -13,11 +13,9 @@ module.exports.getUser = (req, res, next) => {
 };
 
 module.exports.createUser = (req, res, next) => {
-  const {
-    name, login, password,
-  } = req.body;
+  const { username, password } = req.body;
   //  перед созданием пользователя, проверим, что такого логина нет в базе и выдадим понятную ошибку
-  User.findOne({ login })
+  User.findOne({ username })
     .then((userExist) => {
       if (userExist) {
         return Promise.reject(new Conflict(ErrorRegistrationMessage));
@@ -25,7 +23,7 @@ module.exports.createUser = (req, res, next) => {
       //  Cоздаем пользователя. Пароль хешируем
       return bcrypt.hash(password, 10)
         .then((hash) => User.create({
-          name, login, password: hash,
+          username, password: hash,
         }))
         .then((user) => res.send({ data: user.omitPrivate() }));
     })
@@ -34,10 +32,10 @@ module.exports.createUser = (req, res, next) => {
 
 
 module.exports.login = (req, res, next) => {
-  const { login, password } = req.body;
+  const { username, password } = req.body;
   const sevenDays = 3600000 * 24 * 7;
 
-  return User.findUserByCredentials(login, password)
+  return User.findUserByCredentials(username, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, SECRET_KEY, { expiresIn: '7d' });
       res

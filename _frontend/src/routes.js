@@ -1,43 +1,31 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { AuthPage } from './components/AuthPage';
-import {RegisterPage} from './components/RegisterPage';
+import {Redirect, Route, Switch} from 'react-router-dom';
+
+import {AuthPage} from './pages/AuthPage';
+import {RegisterPage} from './pages/RegisterPage';
+import {MainPage} from './pages/MainPage';
 
 
 export const useRoutes = (isAuth) => {
-  // if (isAuth) {
-  //   return (
-  //     <Switch>
-  //       <Route path="/main" exact>
-  //         <MainPage />
-  //       </Route>
-  //       <Route path="/create" exact>
-  //         <DocumentsContainer />
-  //       </Route>
-  //       <Route path="/register">
-  //         <RegisterPage />
-  //       </Route>
-  //       <Route path="/printForm" exact>
-  //         <PrintForm />
-  //       </Route>
-  //       <Route path="/printContract" exact>
-  //         <PrintContract />
-  //       </Route>
-  //       <Route path="/printWorkStatement" exact>
-  //         <PrintWorkStatement />
-  //       </Route>
-  //       <Redirect to="/main" />
-  //     </Switch>
-  //   );
-  // }
-
+  if (isAuth) {
+    return (
+        <Switch>
+          <Route path="/main" component={MainPage} />
+          <Route path="/register">
+            <RegisterPage/>
+          </Route>
+          <Route path="/">
+            <AuthPage/>
+          </Route>
+        </Switch>
+    );
+  }
   return (
     <Switch>
-      <Route path="/" exact>
-        {/*<AuthPage />*/}
-        <RegisterPage/>
-      </Route>
-      <Redirect to="/" />
+      {/*<Route path="/" exact component={AuthPage} />*/}
+      <Route path="/" component={MainPage} />
+      <Route path="/register" component={RegisterPage} />
+      {/*<Redirect to="/" />*/}
     </Switch>
   );
 };

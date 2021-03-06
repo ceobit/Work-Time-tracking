@@ -5,14 +5,16 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
+import {Link} from '@material-ui/core';
 
 import {useStyles} from './style';
 import {usersActions} from '../../redux/actions';
+import {history} from '../../aux';
+
 
 export const AuthPage = () => {
 
@@ -35,8 +37,8 @@ export const AuthPage = () => {
 
   const handleChange = e => {
     const {name, value} = e.target;
-    setInputs(inputs => ({ ...inputs, [name]: value }));
-  }
+    setInputs(inputs => ({...inputs, [name]: value}));
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -44,10 +46,10 @@ export const AuthPage = () => {
     setSubmitted(true);
     if (username && password) {
       // get return url from location state or default to home page
-      const {from} = location.state || {from: {pathname: '/'}};
+      const {from} = location.state || {from: {pathname: '/main'}};
       dispatch(usersActions.login(username, password, from));
     }
-  }
+  };
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -107,9 +109,7 @@ export const AuthPage = () => {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {'Don\'t have an account? Sign Up'}
-                </Link>
+                <Link onClick={() => history.push('/register')}> {'Don\'t have an account? Sign Up'} </Link>
               </Grid>
             </Grid>
           </form>

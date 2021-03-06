@@ -4,13 +4,7 @@ const { UnauthorizedError } = require('../errors/errors');
 const { ErrorLoginOrPassMessage } = require('../errors/errorsMessages');
 
 const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    minlength: 2,
-    maxlength: 40,
-  },
-  login: {
+  username: {
     type: String,
     unique: true,
     required: true,
@@ -24,10 +18,9 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// userSchema.path('email').validate((email) => validator.isEmail(email), ErrorEmailMessage);
 
-userSchema.statics.findUserByCredentials = function (login, password, next) {
-  return this.findOne({ login }).select('+password')
+userSchema.statics.findUserByCredentials = function (username, password, next) {
+  return this.findOne({ username }).select('+password')
     .orFail(() => new UnauthorizedError(ErrorLoginOrPassMessage))
     .then((user) => bcrypt.compare(password, user.password)
       .then((matched) => {

@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect} from 'react';
-import {BrowserRouter} from 'react-router-dom';
+import {Router} from 'react-router-dom';
 import Alert from '@material-ui/lab/Alert';
 
 import {history} from './aux';
@@ -9,7 +9,11 @@ import './App.css';
 import {alertActions} from './redux/actions';
 
 export default () => {
-  const routes = useRoutes(false); // не забыть убрать false
+
+  const loggingIn = useSelector(state => state.authenticationReducer.loggingIn);
+  console.log(loggingIn);
+  const routes = useRoutes(loggingIn);
+
 
   const alert = useSelector(state => state.alertReducer);
   const dispatch = useDispatch();
@@ -22,11 +26,11 @@ export default () => {
   }, []);
 
   return (
-    <BrowserRouter>
-      {alert.message &&
-      <Alert severity="error">{alert.message}</Alert>
-      }
-      {routes}
-    </BrowserRouter>
+    <>
+      {alert.message && <Alert severity="error">{alert.message}</Alert>}
+      <Router history={history}>
+        {routes}
+      </Router>
+    </>
   );
 }
