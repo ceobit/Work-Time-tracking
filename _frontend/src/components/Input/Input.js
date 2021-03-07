@@ -7,7 +7,7 @@ export default function Input({label}) {
   const classes = useStyles();
   return (
     <form className={classes.root} noValidate autoComplete="off">
-      <TextField name="task" label={label} size="small"/>
+      <TextField name="task" label={label} variant='outlined' size='small'/>
     </form>
   );
 }

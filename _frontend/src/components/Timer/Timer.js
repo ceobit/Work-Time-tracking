@@ -1,25 +1,28 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
-import { useStyles } from './style';
+import {useStyles} from './style';
 import Input from '../Input/Input';
+import Clock from '../Clock/Clock';
+
 
 export default function Timer() {
   const classes = useStyles();
 
-
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent>
-        <Input label={"What are you working on?"}/>
+        <Grid container spacing={3}>
+          <Grid sm={7}>
+            <Input label={'What are you working on?'}/>
+          </Grid>
+          <Grid sm={5} className={classes.clock}>
+            <Clock/>
+          </Grid>
+        </Grid>
       </CardContent>
-      {/*<CardActions>*/}
-      {/*  <Button size="small">Learn More</Button>*/}
-      {/*</CardActions>*/}
     </Card>
   );
 }

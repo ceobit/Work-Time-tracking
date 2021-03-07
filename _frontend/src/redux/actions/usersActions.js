@@ -9,7 +9,7 @@ import {
 } from '../types';
 import { history } from '../../aux';
 import { alertActions} from './alertActions';
-import { http } from '../../auth';
+import { http } from '../../http/http';
 
 const login = (username, password, from) =>{
 
