@@ -8,8 +8,8 @@ import {
   REGISTER_SUCCESS,
 } from '../types';
 import { history } from '../../aux';
-import { alertActions} from './alertActions';
-import { http } from '../../http/http';
+import { alertActions } from './alertActions';
+import { http } from '../../http';
 
 const login = (username, password, from) =>{
 
@@ -39,7 +39,6 @@ const logout = () => {
   http.logout();
   return { type: LOGOUT };
 }
-
 
 const register = user => {
 

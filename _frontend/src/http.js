@@ -45,6 +45,20 @@ const createRecord = (properties) => {
 
   return fetch(`/api/create`, requestOptions).
     then(handleResponse).
+    then(records => {
+      return records;
+    });
+};
+
+const getRecords = () => {
+
+  const requestOptions = {
+    method: 'GET',
+    headers: {'Content-Type': 'application/json'},
+  };
+
+  return fetch(`/api/records`, requestOptions).
+    then(handleResponse).
     then(record => {
       return record;
     });
@@ -75,5 +89,6 @@ export const http = {
   login,
   logout,
   register,
-  createRecord
+  createRecord,
+  getRecords
 };

@@ -1,9 +1,7 @@
 const router = require("express").Router();
-const { celebrate } = require("celebrate");
-const { login, createUser } = require("../controllers/users");
-const { accountSignIn, accountSignUp } = require("../models/validations");
+const { createRecord, getRecords } = require("../controllers/dateRecords");
 
-router.post("/api/signin", celebrate(accountSignIn), login);
-router.post("/api/signup", celebrate(accountSignUp), createUser);
+router.post("/api/create", createRecord);
+router.get("/api/records", getRecords);
 
 module.exports = router;
