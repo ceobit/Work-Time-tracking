@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import {useStyles} from './style';
 import Input from '../Input/Input';
 import Clock from '../Clock/Clock';
+import {Tools} from '../Tools/Tools';
 
 
 export default function Timer() {
@@ -21,6 +22,7 @@ export default function Timer() {
           <Grid sm={5} className={classes.clock}>
             <Clock/>
           </Grid>
+          <Tools/>
         </Grid>
       </CardContent>
     </Card>

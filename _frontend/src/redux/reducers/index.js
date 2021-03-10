@@ -8,6 +8,7 @@ import { alertReducer } from './alertReducer';
 import {fetchReducer} from './fetchReducer';
 import {deleteReducer} from './deleteReducer';
 import {updateReducer} from './updateReducer';
+import {filterReducer} from './filterReducer';
 
 const rootReducer = combineReducers({
   registrationReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   records: recordReducer,
   deleteRecord: deleteReducer,
   updateRecord: updateReducer,
+  filter: filterReducer
 });
 
 export default rootReducer;

@@ -15,12 +15,11 @@ export const WorkTimeHistory = () => {
   const classes = useStyles();
 
   const records = useSelector(state => state.fetched_records.records);
+  const filter = useSelector(state => state.filter.records);
   const dispatch = useDispatch();
 
   useEffect(  () => {
-    setTimeout(()=>{
-      dispatch(recordActions.getRecords());
-    })
+    dispatch(recordActions.getRecords());
   }, []);
 
 
@@ -37,9 +36,11 @@ export const WorkTimeHistory = () => {
     );
   }
 
+  const recordArray = filter.length ? filter : records;
+
   return (
     <>
-      {splitArray(records).map(
+      {splitArray(recordArray, filter).map(
         (record, index) => <WorkTimeRecords key={index} records={record}/>)}
     </>
   );
