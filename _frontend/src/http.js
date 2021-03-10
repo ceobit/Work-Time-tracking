@@ -64,6 +64,35 @@ const getRecords = () => {
     });
 };
 
+const deleteRecords = (recordId) => {
+
+  const requestOptions = {
+    method: 'DELETE',
+    headers: {'Content-Type': 'application/json'},
+  };
+
+  return fetch(`/api/delete/${recordId}`, requestOptions).
+    then(handleResponse).
+    then(record => {
+      return record;
+    });
+};
+
+const updateRecords = (recordId, properties) => {
+
+  const requestOptions = {
+    method: 'PATCH',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({...properties}),
+  };
+
+  return fetch(`/api/patch/${recordId}`, requestOptions).
+    then(handleResponse).
+    then(record => {
+      return record;
+    });
+};
+
 //Common
 
 const handleResponse = response => {
@@ -90,5 +119,6 @@ export const http = {
   logout,
   register,
   createRecord,
-  getRecords
+  getRecords,
+  deleteRecords
 };

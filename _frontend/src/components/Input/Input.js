@@ -6,7 +6,7 @@ import { useStyles } from './style';
 
 import {timerActions} from '../../redux/actions';
 
-export default function Input({label}) {
+export default function Input({label, name}) {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export default function Input({label}) {
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <TextField
-        name="task"
+        name={name}
         label={label}
         variant='outlined'
         size='small'

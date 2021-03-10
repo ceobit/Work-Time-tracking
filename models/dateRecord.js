@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const dateRecordSchema = new mongoose.Schema({
+const recordSchema = new mongoose.Schema({
   description: {
     type: String,
     minlength: 1,
@@ -28,4 +28,4 @@ const dateRecordSchema = new mongoose.Schema({
 { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );
 
-module.exports = mongoose.model('dateRecord', dateRecordSchema);
+module.exports = mongoose.model('dateRecord', recordSchema);

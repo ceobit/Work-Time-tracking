@@ -4,6 +4,7 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import {AuthPage} from './pages/AuthPage';
 import {RegisterPage} from './pages/RegisterPage';
 import {MainPage} from './pages/MainPage';
+import {EditRecord} from './components/EditRecord/EditRecord';
 
 
 export const useRoutes = (isAuth) => {
@@ -24,6 +25,7 @@ export const useRoutes = (isAuth) => {
     <Switch>
       {/*<Route path="/" exact component={AuthPage} />*/}
       <Route path="/" component={MainPage} />
+      {/*<Route path="/" component={EditRecord} />*/}
       <Route path="/register" component={RegisterPage} />
       {/*<Redirect to="/" />*/}
     </Switch>

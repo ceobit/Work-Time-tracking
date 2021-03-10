@@ -1,7 +1,7 @@
-import React from 'react';
-import {useSelector} from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {useDispatch} from 'react-redux';
 import clsx from 'clsx';
-import DeleteIcon from '@material-ui/icons/Delete';
+import {Create, Delete} from '@material-ui/icons';
 import moment from 'moment';
 
 import {useStyles, useToolbarStyles} from './style';
@@ -22,6 +22,8 @@ import {
   Typography,
 } from '@material-ui/core';
 import {dateToString} from '../../aux';
+import {recordActions} from '../../redux/actions';
+import {EditRecord} from '../EditRecord/EditRecord';
 
 function createData(id, description, timeInterval, duration) {
   return {id, description, timeInterval, duration};
@@ -33,10 +35,11 @@ const createRows = (records = []) => {
       createData(
         item._id,
         item.description,
-        `${moment(item.timeStart).format('hh:mm')} ~ ${moment(item.timeFinish).format('hh:mm')}`,
-        item.duration
-      )
-    )
+        `${moment(item.timeStart).format('hh:mm')} ~ ${moment(item.timeFinish).
+          format('hh:mm')}`,
+        item.duration,
+      ),
+    ),
   );
 };
 
@@ -133,7 +136,26 @@ function EnhancedTableHead(props) {
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const {numSelected} = props;
+  const {recordId, date} = props;
+
+  const [numSelected, setNumSelected] = useState(props.numSelected);
+  const [isEdit, setIsEdit] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setNumSelected(props.numSelected);
+  }, [props.numSelected, numSelected]);
+
+
+  const handleEditRecord = () => {
+    setIsEdit(!isEdit);
+  }
+  // Доделать очистку от корзины
+  const handleDeleteRecord = () => {
+    dispatch(recordActions.deleteRecord(recordId)).
+      then(() => dispatch(recordActions.getRecords()));
+    setNumSelected(0);
+  };
 
   return (
     <Toolbar
@@ -149,22 +171,30 @@ const EnhancedTableToolbar = (props) => {
       ) : (
         <Typography className={classes.title} variant="h6" id="tableTitle"
                     component="div">
-          {!!props.date ? dateToString(props.date) : ''}
+          {!!date ? dateToString(date) : ''}
         </Typography>
       )}
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton aria-label="delete">
-            <DeleteIcon/>
-          </IconButton>
-        </Tooltip>
+        <>
+          <Tooltip title="Edit">
+            <IconButton aria-label="edit" onClick={handleEditRecord}>
+              <Create/>
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Delete">
+            <IconButton aria-label="delete" onClick={handleDeleteRecord}>
+              <Delete/>
+            </IconButton>
+          </Tooltip>
+        </>
       ) : (
         <Typography className={classes.totalTime} variant="subtitle1"
                     component="div">
           Total: 00:00:00
         </Typography>
       )}
+      {isEdit && <EditRecord/>}
     </Toolbar>
   );
 };
@@ -182,8 +212,6 @@ export const WorkTimeRecords = ({records}) => {
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
-
-  console.log('records', records);
 
   const rows = createRows(records);
 
@@ -205,7 +233,8 @@ export const WorkTimeRecords = ({records}) => {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected ? 1 : 0} date={records[0].created_at}/>
+        <EnhancedTableToolbar numSelected={selected ? 1 : 0}
+                              date={records[0].created_at} recordId={selected}/>
         {/*<EnhancedTableToolbar numSelected={selected ? 1 : 0} date={0}/>*/}
         <TableContainer>
           <Table
