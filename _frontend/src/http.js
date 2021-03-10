@@ -45,6 +45,49 @@ const createRecord = (properties) => {
 
   return fetch(`/api/create`, requestOptions).
     then(handleResponse).
+    then(records => {
+      return records;
+    });
+};
+
+const getRecords = () => {
+
+  const requestOptions = {
+    method: 'GET',
+    headers: {'Content-Type': 'application/json'},
+  };
+
+  return fetch(`/api/records`, requestOptions).
+    then(handleResponse).
+    then(record => {
+      return record;
+    });
+};
+
+const deleteRecords = (recordId) => {
+
+  const requestOptions = {
+    method: 'DELETE',
+    headers: {'Content-Type': 'application/json'},
+  };
+
+  return fetch(`/api/delete/${recordId}`, requestOptions).
+    then(handleResponse).
+    then(record => {
+      return record;
+    });
+};
+
+const updateRecords = (recordId, properties) => {
+
+  const requestOptions = {
+    method: 'PATCH',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({...properties}),
+  };
+
+  return fetch(`/api/patch/${recordId}`, requestOptions).
+    then(handleResponse).
     then(record => {
       return record;
     });
@@ -75,5 +118,7 @@ export const http = {
   login,
   logout,
   register,
-  createRecord
+  createRecord,
+  getRecords,
+  deleteRecords
 };

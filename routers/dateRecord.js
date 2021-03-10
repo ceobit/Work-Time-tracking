@@ -1,9 +1,10 @@
 const router = require("express").Router();
-const { celebrate } = require("celebrate");
-const { login, createUser } = require("../controllers/users");
-const { accountSignIn, accountSignUp } = require("../models/validations");
 
-router.post("/api/signin", celebrate(accountSignIn), login);
-router.post("/api/signup", celebrate(accountSignUp), createUser);
+const { createRecord, getRecords, deleteRecord, updateRecord } = require("../controllers/dateRecords");
+
+router.post("/api/create", createRecord);
+router.get("/api/records", getRecords);
+router.delete('/api/delete/:recordId', deleteRecord);
+router.patch('/api/patch/:recordId', updateRecord);
 
 module.exports = router;

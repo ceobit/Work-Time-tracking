@@ -1,8 +1,6 @@
 import { REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE } from '../types';
 
-const initialState = {
-
-};
+const initialState = {};
 
 export const registrationReducer = (state = initialState, action) => {
   switch (action.type) {
