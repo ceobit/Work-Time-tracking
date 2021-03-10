@@ -10,10 +10,14 @@ import {
   DELETE_RECORDS_REQUEST_FAILURE,
   UPDATE_RECORDS_REQUEST,
   UPDATE_RECORDS_REQUEST_SUCCESS,
-  UPDATE_RECORDS_REQUEST_FAILURE
+  UPDATE_RECORDS_REQUEST_FAILURE,
+  FILTER_RECORDS,
+  GET_FILTERED_RECORDS,
+  RESET_FILTERED_RECORDS,
 } from '../types';
 import { alertActions } from './alertActions';
 import { http } from '../../http';
+import {checkDate} from '../../aux';
 
 const createRecord = record => {
 
@@ -103,9 +107,18 @@ const updateRecord = (recordId, description) => {
   };
 }
 
+const getFilterRecords = (dateFrom, dateTo, records) => {
+  const arr = records.filter(el => checkDate(el, dateFrom, dateTo));
+  return {type: GET_FILTERED_RECORDS, records: arr}
+};
+
+const resetFilter = () => ({ type: RESET_FILTERED_RECORDS });
+
 export const recordActions = {
   createRecord,
   getRecords,
   deleteRecord,
-  updateRecord
+  updateRecord,
+  getFilterRecords,
+  resetFilter
 }

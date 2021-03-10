@@ -11,7 +11,7 @@
 <li>User ables to create time records with date, length of time and a note</li>
 <li>User ables to sort time records based on date and length of time</li>
 <li>User ables to filter time records by start date (from date, to date)</li>
-<li>User ables to change and delete time records (from date, to date)</li>
+<li>User ables to change and delete time records</li>
 </ul>
 
 it's possible to perform all user actions via the REST API, including authentication  
