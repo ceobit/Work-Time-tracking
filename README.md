@@ -2,6 +2,8 @@
 
 #### The fullstack time tracking app
 
+<img src="./_frontend/src/images/img.png" alt="screen">
+
 ### Features:
 
 <ul>

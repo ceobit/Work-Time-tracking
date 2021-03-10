@@ -21,5 +21,10 @@ export const useStyles = makeStyles((theme) => ({
   },
   button: {
     height: '50%'
+  },
+  rotate: {
+    transform: 'rotate(180deg)',
+    margin: '0',
+    padding: '0',
   }
 }));
