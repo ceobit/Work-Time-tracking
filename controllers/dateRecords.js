@@ -38,10 +38,10 @@ module.exports.deleteRecord = (req, res, next) => {
 };
 
 module.exports.updateRecord = (req, res, next) => {
-  const { ...properties } = req.body;
+  const { description } = req.body;
   const { recordId } = req.params;
 
-  Record.findByIdAndUpdate(recordId, { ...properties }, opts)
+  Record.findByIdAndUpdate(recordId, { description }, opts)
   .orFail(() => new NotFoundError(DataNotFoundMessage))
   .then((record) => res.send({ data: record }))
   .catch(next);

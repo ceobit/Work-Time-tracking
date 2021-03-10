@@ -78,12 +78,12 @@ const deleteRecords = (recordId) => {
     });
 };
 
-const updateRecords = (recordId, properties) => {
+const updateRecords = (recordId, description) => {
 
   const requestOptions = {
     method: 'PATCH',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({...properties}),
+    body: JSON.stringify({description}),
   };
 
   return fetch(`/api/patch/${recordId}`, requestOptions).
@@ -120,5 +120,6 @@ export const http = {
   register,
   createRecord,
   getRecords,
-  deleteRecords
+  deleteRecords,
+  updateRecords
 };
