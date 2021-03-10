@@ -194,7 +194,7 @@ const EnhancedTableToolbar = (props) => {
           Total: 00:00:00
         </Typography>
       )}
-      {isEdit && <EditRecord/>}
+      {isEdit && <EditRecord recordId={recordId}/>}
     </Toolbar>
   );
 };

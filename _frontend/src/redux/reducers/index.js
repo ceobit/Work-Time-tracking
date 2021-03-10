@@ -7,6 +7,7 @@ import {recordReducer} from './recordReducer';
 import { alertReducer } from './alertReducer';
 import {fetchReducer} from './fetchReducer';
 import {deleteReducer} from './deleteReducer';
+import {updateReducer} from './updateReducer';
 
 const rootReducer = combineReducers({
   registrationReducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   fetched_records: fetchReducer,
   records: recordReducer,
   deleteRecord: deleteReducer,
+  updateRecord: updateReducer,
 });
 
 export default rootReducer;
