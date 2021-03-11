@@ -1,6 +1,11 @@
 ## Project "Work Time Tracking"
 
-#### The fullstack time tracking app
+
+
+#### The fullstack time tracking app (in progress...)
+
+
+<img src="./_frontend/src/images/img.png" alt="screen">
 
 ### Features:
 

@@ -3,11 +3,11 @@ import {useDispatch, useSelector, useStore} from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-import {formatDate} from '../../aux';
+import {calculate, formatDate} from '../../aux';
 import {useStyles} from './style';
 import {recordActions, timerActions} from '../../redux/actions';
 
-export default function App() {
+export default function App({setInputValue}) {
 
   const classes = useStyles();
 
@@ -23,19 +23,8 @@ export default function App() {
   const isActive = useSelector(state => state.timer.timeStart);
   const store = useStore();
 
-  const calculateTime = useCallback(() => {
-    let {hours, minutes, seconds} = activeTime;
-    seconds++;
-    if (seconds === 60) {
-      minutes++;
-      seconds = 0;
-    }
-    if (minutes === 60) {
-      hours++;
-      minutes = 0;
-    }
-    return {...activeTime, hours: hours, minutes: minutes, seconds: seconds};
-  }, [activeTime]);
+
+  const calculateTime = useCallback(calculate(activeTime), [activeTime]);
 
   useEffect(() => {
     if (startTimer) {
@@ -58,6 +47,8 @@ export default function App() {
     //promise chain
     dispatch(recordActions.createRecord(store.getState().timer)).
       then(() => dispatch(recordActions.getRecords()));
+
+    setInputValue('');
   };
 
   return (

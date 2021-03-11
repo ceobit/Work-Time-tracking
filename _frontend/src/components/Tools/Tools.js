@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {IconButton, Tooltip} from '@material-ui/core';
 import {Search} from '@material-ui/icons';
@@ -17,12 +17,14 @@ export const Tools = () => {
   const [showPicker, setShowPicker] = useState(false);
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');
+  const [isSorted, setIsSorted] = useState('');
 
   const handleFilterIcon = () => {
     setShowPicker(true);
+    setIsSorted('');
   };
 
-  const onChange = e => {
+  const onChangeDate = e => {
     const {id, value} = e.target;
     id === 'dateFrom' ? setDateFrom(value) : setDateTo(value);
   };
@@ -36,6 +38,16 @@ export const Tools = () => {
     dispatch(recordActions.resetFilter());
   };
 
+  const handleSort = () => {
+    setIsSorted(!isSorted);
+  }
+
+  useEffect(() => {
+    isSorted
+      ? dispatch(recordActions.sortRecords(isSorted, records))
+      : dispatch(recordActions.sortRecords(isSorted, filter));
+  }, [isSorted])
+
   const classes = useStyles();
 
   return (
@@ -48,15 +60,15 @@ export const Tools = () => {
             </IconButton>
           </Tooltip>
           <Tooltip title="Sort" className={classes.tool}>
-            <IconButton aria-label="sort">
-              <SortIcon/>
+            <IconButton aria-label="sort" onClick={handleSort}>
+              <div className={!isSorted ? classes.rotate : null}><SortIcon/></div>
             </IconButton>
           </Tooltip>
         </>
         :
         <div className={classes.pickers}>
-          <DatePicker label="From" id='dateFrom' onChange={onChange}/>
-          <DatePicker label="To" id='dateTo' onChange={onChange}/>
+          <DatePicker label="From" id='dateFrom' onChange={onChangeDate}/>
+          <DatePicker label="To" id='dateTo' onChange={onChangeDate}/>
           <div className={classes.button}>
             <Button variant='outlined'
                     color='primary'
@@ -73,9 +85,9 @@ export const Tools = () => {
                   color='primary'
                   size='small'
                   onClick={handleResetFilter}>
-            Reset filter
+            Reset
           </Button></div> : null}
     </div>
   );
-};
+}
 

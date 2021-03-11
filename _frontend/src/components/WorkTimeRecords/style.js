@@ -5,15 +5,9 @@ export const useToolbarStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(1),
   },
-  highlight:
-    theme.palette.type === 'light'
-      ? {
-        color: theme.palette.secondary.main,
-        backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-      }
-      : {
+  highlight: {
         color: theme.palette.text.primary,
-        backgroundColor: theme.palette.secondary.dark,
+        backgroundColor: theme.palette.primary.light,
       },
   title: {
     flex: '1 1 100%',
@@ -48,4 +42,15 @@ export const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
+  row: {
+      backgroundColor: '#bbc3ea!important',
+  },
+  empty: {
+    color:'#181934!important',
+  },
+  cell: {
+    width: '300px',
+    whiteSpace: 'normal!important',
+    wordBreak: 'break-word!important'
+  }
 }));

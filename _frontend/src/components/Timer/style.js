@@ -5,7 +5,8 @@ export const useStyles = makeStyles({
     minWidth: 275,
     marginTop: 15,
     width: "50vw",
-    margin: "0 auto"
+    margin: "0 auto",
+    padding: '0'
   },
   title: {
     fontSize: 14,
