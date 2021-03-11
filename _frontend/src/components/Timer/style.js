@@ -12,6 +12,10 @@ export const useStyles = makeStyles({
     fontSize: 14,
   },
   clock: {
-    alignSelf: "center"
+    alignSelf: "center",
+    padding: '0'
+  },
+  default: {
+    padding: '0'
   }
 });

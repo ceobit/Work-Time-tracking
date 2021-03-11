@@ -20,6 +20,7 @@ const login = (username, password, from) =>{
   return dispatch => {
     dispatch(request({ username }));
 
+    console.log('from',from);
     http.login(username, password)
     .then(
       user => {

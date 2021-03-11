@@ -1,12 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {Link as RouterLink, withRouter} from 'react-router-dom';
-import {Container, CssBaseline, TextField} from '@material-ui/core';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
+import {Link as RouterLink} from 'react-router-dom';
+import {Container, CssBaseline, TextField, Avatar, Typography, Grid, Button} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Button from '@material-ui/core/Button';
 
 import {useStyles} from './style';
 import {usersActions} from '../../redux/actions';
@@ -21,7 +17,6 @@ export const RegisterPage = () => {
   });
   const [submitted, setSubmitted] = useState(false);
   const {username, password} = user;
-  // const registering = useSelector(state => state.registrationReducer.registering);
   const dispatch = useDispatch();
 
   // reset login status

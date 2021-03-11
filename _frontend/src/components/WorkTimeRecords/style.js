@@ -1,6 +1,9 @@
-import {lighten, makeStyles} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 
 export const useToolbarStyles = makeStyles((theme) => ({
+  container: {
+    position: 'relative',
+  },
   root: {
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(1),
@@ -14,8 +17,13 @@ export const useToolbarStyles = makeStyles((theme) => ({
   },
   totalTime: {
     justifyContent: 'right',
-    width: '17%',
+    width: '19%',
     fontSize: '14px',
+  },
+  chart: {
+    position: 'absolute',
+    left: '96%',
+    top: '-140%',
   }
 }));
 

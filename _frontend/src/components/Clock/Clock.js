@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector, useStore} from 'react-redux';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import {Button, Typography} from '@material-ui/core';
 
 import {calculate, formatDate} from '../../aux';
 import {useStyles} from './style';
@@ -32,7 +31,7 @@ export default function App({setInputValue}) {
         setActiveTime(calculateTime);
       }, 1000);
     }
-  }, [activeTime, startTimer]);
+  }, [activeTime, startTimer, calculateTime]);
 
   const handleTimer = () => {
     setStartTimer(!startTimer);
@@ -45,8 +44,8 @@ export default function App({setInputValue}) {
     setActiveTime({...initialState});
     dispatch(timerActions.createDuration(formatDate(activeTime)));
     //promise chain
-    dispatch(recordActions.createRecord(store.getState().timer)).
-      then(() => dispatch(recordActions.getRecords()));
+    dispatch(recordActions.createRecord(store.getState().timer))
+    .then(() => dispatch(recordActions.getRecords()));
 
     setInputValue('');
   };

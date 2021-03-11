@@ -3,7 +3,6 @@ import TextField from '@material-ui/core/TextField';
 import {useDispatch} from 'react-redux';
 
 import { useStyles } from './style';
-
 import {timerActions} from '../../redux/actions';
 
 export default function Input({label, name, inputValue, setInputValue}) {

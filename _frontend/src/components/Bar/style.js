@@ -10,4 +10,8 @@ export const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  user: {
+    color: '#fff',
+    fontSize: '14px'
+  }
 }));

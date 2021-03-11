@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import clsx from 'clsx';
 import {Create, Delete} from '@material-ui/icons';
+import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 import moment from 'moment';
 import {
   Checkbox,
@@ -20,9 +21,10 @@ import {
 } from '@material-ui/core';
 
 import {useStyles, useToolbarStyles} from './style';
-import {dateToString, getTotalTime} from '../../aux';
+import {dateToString, getSeconds, getTotalTime} from '../../aux';
 import {recordActions} from '../../redux/actions';
 import {EditRecord} from '../EditRecord/EditRecord';
+import {Chart} from '../Chart/Chart';
 
 function createData(id, description, timeInterval, duration) {
   return {id, description, timeInterval, duration};
@@ -135,10 +137,11 @@ function EnhancedTableHead(props) {
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const {recordId, date, totalTime, handleSelection} = props;
+  const {recordId, date, totalTime, handleSelection, chartData} = props;
 
   const [numSelected, setNumSelected] = useState(props.numSelected);
   const [isEdit, setIsEdit] = useState(false);
+  const [showChart, setShowChart] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -157,50 +160,67 @@ const EnhancedTableToolbar = (props) => {
 
   const handleDeleteRecord = () => {
     dispatch(recordActions.deleteRecord(recordId)).
-      then(() => dispatch(recordActions.getRecords())).
-      then(() => setNumSelected(0));
+      then(() => dispatch(recordActions.getRecords()))
+      //.then(() => setNumSelected(0));
+  };
+
+  //show/hide chart
+  const handleChart = () => {
+    setShowChart(!showChart);
   };
 
   return (
-    <Toolbar
-      className={clsx(classes.root, {
-        [classes.highlight]: numSelected > 0,
-      })}
-    >
-      {numSelected > 0 ? (
-        <Typography className={classes.title} color="inherit"
-                    variant="subtitle1" component="div">
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography className={classes.title} variant="h6" id="tableTitle"
-                    component="div">
-          {!!date ? dateToString(date) : ''}
-        </Typography>
-      )}
+    <div className={classes.container}>
+      <Toolbar
+        className={clsx(classes.root, {
+          [classes.highlight]: numSelected > 0,
+        })}
+      >
+        {numSelected > 0 ? (
+          <Typography className={classes.title} color="inherit"
+                      variant="subtitle1" component="div">
+            {numSelected} selected
+          </Typography>
+        ) : (
+          <>
+            <Typography className={classes.title} variant="h6" id="tableTitle"
+                        component="div">
+              {!!date ? dateToString(date) : ''}
+            </Typography>
+            <Tooltip title="Chart">
+              <IconButton aria-label="chart" onClick={handleChart}>
+                <DonutLargeIcon/>
+              </IconButton>
+            </Tooltip>
+          </>
+        )}
 
-      {numSelected > 0 ? (
-        <>
-          <Tooltip title="Edit">
-            <IconButton aria-label="edit" onClick={handleEditRecord}>
-              <Create/>
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Delete">
-            <IconButton aria-label="delete" onClick={handleDeleteRecord}>
-              <Delete/>
-            </IconButton>
-          </Tooltip>
-        </>
-      ) : (
-        <Typography className={classes.totalTime} variant="subtitle1"
-                    component="div">
-          Total: {totalTime}
-        </Typography>
-      )}
-      {isEdit && <EditRecord recordId={recordId} handleClose={handleCloseModal}
-                             setIsEdit={setIsEdit}/>}
-    </Toolbar>
+        {numSelected > 0 ? (
+          <>
+            <Tooltip title="Edit">
+              <IconButton aria-label="edit" onClick={handleEditRecord}>
+                <Create/>
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Delete">
+              <IconButton aria-label="delete" onClick={handleDeleteRecord}>
+                <Delete/>
+              </IconButton>
+            </Tooltip>
+          </>
+        ) : (
+          <Typography className={classes.totalTime} variant="subtitle1"
+                      component="div">
+            Total: {totalTime}
+          </Typography>
+        )}
+        {isEdit &&
+        <EditRecord recordId={recordId} handleClose={handleCloseModal}
+                    setIsEdit={setIsEdit}/>}
+      </Toolbar>
+      {showChart &&
+      <div className={classes.chart}><Chart data={chartData}/></div>}
+    </div>
   );
 };
 
@@ -221,6 +241,9 @@ export const WorkTimeRecords = ({records}) => {
   const rows = createRows(records);
 
   const totalTime = getTotalTime(rows);
+
+  const chartData = rows.map(
+    el => ({name: el.description, value: getSeconds(el.duration)}));
 
   const handleClick = (event, name) => {
     selected === name ? setSelected(0) : setSelected(name);
@@ -243,7 +266,8 @@ export const WorkTimeRecords = ({records}) => {
         <EnhancedTableToolbar numSelected={selected ? 1 : 0}
                               date={records[0].created_at} recordId={selected}
                               totalTime={totalTime}
-                              handleSelection={handleClick}/>
+                              handleSelection={handleClick}
+                              chartData={chartData}/>
         <TableContainer>
           <Table
             className={classes.table}
@@ -275,7 +299,7 @@ export const WorkTimeRecords = ({records}) => {
                       tabIndex={-1}
                       key={row.id}
                       selected={isItemSelected}
-                      className={isItemSelected ? classes.row : {}}
+                      className={isItemSelected ? classes.row : ''}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
@@ -292,19 +316,19 @@ export const WorkTimeRecords = ({records}) => {
                     </TableRow>
                   );
                 })}
-                </TableBody>
-                </Table>
-                </TableContainer>
-                <TablePagination
-                rowsPerPageOptions={[5, 10]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
-                </Paper>
-                </div>
-                );
-              };
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[5, 10]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+      </Paper>
+    </div>
+  );
+};

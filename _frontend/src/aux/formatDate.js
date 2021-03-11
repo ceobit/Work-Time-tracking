@@ -1,5 +1,4 @@
 import moment from 'moment';
-import {useCallback} from 'react';
 
 export const formatDate = objDate => {
   const obj = {};
@@ -30,12 +29,17 @@ export const checkDate = (date, dateFrom, dateTo) => {
   }
 }
 
+export const getTotalSeconds = (durations) => {
+  let seconds = durations.reduce((acc, cur) => (acc+= +cur.slice(-2), acc),0);
+  const minutes = durations.reduce((acc, cur) => (acc+= +cur.slice(3,5), acc),0);
+  const hours = durations.reduce((acc, cur) => (acc+= +cur.slice(0,2), acc),0);
+  seconds += minutes * 60 + hours * 3600;
+  return seconds;
+}
+
 export const getTotalTime = (arr) => {
   const durations = arr.map(a => a.duration);
-  let seconds = durations.reduce((acc, cur) => (acc+= +cur.slice(-2), acc),0);
-  const minutes = durations.reduce((acc, cur) => (acc+= +cur.slice(4,5), acc),0);
-  const hours = durations.reduce((acc, cur) => (acc+= +cur.slice(0,2), acc),0);
-  seconds += minutes / 60 + hours / 3600;
+  const seconds = getTotalSeconds(durations);
   return moment.utc(seconds*1000).format('HH:mm:ss');
 }
 
@@ -52,3 +56,13 @@ export const calculate = (activeTime) => {
   }
   return {...activeTime, hours: hours, minutes: minutes, seconds: seconds};
 }
+
+export const getSeconds = (duration) => {
+  let seconds = +duration.slice(-2);
+  const minutes = +duration.slice(3,5);
+  const hours = +duration.slice(0,2);
+  seconds += minutes * 60 + hours * 3600;
+  return seconds;
+}
+
+

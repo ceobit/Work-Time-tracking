@@ -1,14 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import {Avatar, Button, CssBaseline, TextField, Paper, Grid, Typography} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
 import {Link} from '@material-ui/core';
 
 import {useStyles} from './style';
@@ -26,7 +20,7 @@ export const AuthPage = () => {
   });
   const [submitted, setSubmitted] = useState(false);
   const {username, password} = inputs;
-  // const loggingIn = useSelector(state => state.authenticationReducer.loggingIn); //Нужен для спинера на кнопке
+  // const loggingIn = useSelector(state => state.authentication.loggingIn); //Нужен для спинера на кнопке
   const dispatch = useDispatch();
   const location = useLocation();
 

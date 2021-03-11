@@ -1,12 +1,9 @@
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector, useStore} from 'react-redux';
+import React from 'react';
 
 import {Bar} from '../../components/Bar/Bar';
 import Timer from '../../components/Timer/Timer';
 import {useStyles} from './style';
 import {WorkTimeHistory} from '../../components/WorkTimeHistory/WorkTimeHistory';
-import {recordActions} from '../../redux/actions';
-
 
 export const MainPage = () => {
 

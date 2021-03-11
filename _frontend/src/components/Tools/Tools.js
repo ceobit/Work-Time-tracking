@@ -3,10 +3,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import {IconButton, Tooltip} from '@material-ui/core';
 import {Search} from '@material-ui/icons';
 import SortIcon from '@material-ui/icons/Sort';
+import Button from '@material-ui/core/Button';
 
 import {useStyles} from './style';
 import {DatePicker} from '../DatePicker/DatePicker';
-import Button from '@material-ui/core/Button';
 import {recordActions} from '../../redux/actions';
 
 export const Tools = () => {

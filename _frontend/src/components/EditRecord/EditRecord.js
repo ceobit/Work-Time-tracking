@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import Button from '@material-ui/core/Button';
-import {Modal} from '@material-ui/core';
+import {useDispatch, useSelector} from 'react-redux';
+import {Button, Modal} from '@material-ui/core';
 
 import {getModalStyle, useStyles} from './style';
 import Input from '../Input/Input';
 import {recordActions} from '../../redux/actions';
-import {useDispatch, useSelector} from 'react-redux';
 
 export const EditRecord = ({recordId, handleClose, setIsEdit}) => {
   const classes = useStyles();
@@ -25,7 +24,7 @@ export const EditRecord = ({recordId, handleClose, setIsEdit}) => {
 
   return (
     <Modal
-      open='true'
+      open={true}
       onClose={handleClose}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"

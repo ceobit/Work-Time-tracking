@@ -12,7 +12,7 @@ import {filterReducer} from './filterReducer';
 
 const rootReducer = combineReducers({
   registrationReducer,
-  authenticationReducer,
+  authentication: authenticationReducer,
   alertReducer,
   timer: timerReducer,
   fetched_records: fetchReducer,

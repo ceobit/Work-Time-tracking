@@ -8,12 +8,10 @@ import {useRoutes} from './routes';
 import './App.css';
 import {alertActions} from './redux/actions';
 
-export default () => {
+export const App = () => {
 
-  const loggingIn = useSelector(state => state.authenticationReducer.loggingIn);
-  console.log(loggingIn);
+  const loggingIn = useSelector(state => state.authentication.loggingIn);
   const routes = useRoutes(loggingIn);
-
 
   const alert = useSelector(state => state.alertReducer);
   const dispatch = useDispatch();
@@ -23,7 +21,7 @@ export default () => {
       // clear alert on location change
       dispatch(alertActions.clear());
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

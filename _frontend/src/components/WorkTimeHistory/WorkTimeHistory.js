@@ -1,13 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import CardContent from '@material-ui/core/CardContent';
-import {Card} from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
+import {Card, CardContent, Typography} from '@material-ui/core';
 import { v4 as uuid} from 'uuid';
 
 import {useStyles} from './style';
 import {WorkTimeRecords} from '../WorkTimeRecords/WorkTimeRecords';
-import {alertActions, recordActions} from '../../redux/actions';
+import {recordActions} from '../../redux/actions';
 import {splitArray} from '../../aux';
 
 export const WorkTimeHistory = () => {
@@ -41,7 +39,7 @@ export const WorkTimeHistory = () => {
   return (
     <>
       {splitArray(recordArray).map(
-        (record, index) => <WorkTimeRecords key={index} records={record}/>)}
+        (record) => <WorkTimeRecords key={uuid()} records={record}/>)}
     </>
   );
 };
