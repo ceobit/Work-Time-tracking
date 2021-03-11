@@ -8,18 +8,18 @@ export const authenticationReducer = (state = initialState, action) => {
     case LOGIN_REQUEST:
       return {
         loggingIn: true,
-        user: action.user
+        user: action.user,
       };
     case LOGIN_SUCCESS:
       return {
         loggedIn: true,
-        user: action.user
+        user: action.user,
       };
     case LOGIN_FAILURE:
       return {};
     case LOGOUT:
       return {};
     default:
-      return state
+      return state;
   }
-}
+};

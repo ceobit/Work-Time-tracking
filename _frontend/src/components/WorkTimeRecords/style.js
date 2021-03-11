@@ -1,4 +1,4 @@
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 export const useToolbarStyles = makeStyles((theme) => ({
   container: {
@@ -9,9 +9,9 @@ export const useToolbarStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing(1),
   },
   highlight: {
-        color: theme.palette.text.primary,
-        backgroundColor: theme.palette.primary.light,
-      },
+    color: theme.palette.text.primary,
+    backgroundColor: theme.palette.primary.light,
+  },
   title: {
     flex: '1 1 100%',
   },
@@ -24,7 +24,7 @@ export const useToolbarStyles = makeStyles((theme) => ({
     position: 'absolute',
     left: '96%',
     top: '-140%',
-  }
+  },
 }));
 
 export const useStyles = makeStyles((theme) => ({
@@ -51,14 +51,14 @@ export const useStyles = makeStyles((theme) => ({
     width: 1,
   },
   row: {
-      backgroundColor: '#bbc3ea!important',
+    backgroundColor: '#bbc3ea!important',
   },
   empty: {
-    color:'#181934!important',
+    color: '#181934!important',
   },
   cell: {
     width: '300px',
     whiteSpace: 'normal!important',
-    wordBreak: 'break-word!important'
-  }
+    wordBreak: 'break-word!important',
+  },
 }));

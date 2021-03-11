@@ -15,117 +15,118 @@ import {
   UPDATE_RECORDS_REQUEST_FAILURE,
   UPDATE_RECORDS_REQUEST_SUCCESS,
 } from '../types';
-import {alertActions} from './alertActions';
-import {http} from '../../http';
-import {checkDate} from '../../aux';
+import { alertActions } from './alertActions';
+import { http } from '../../http';
+import { checkDate } from '../../aux';
 
-const createRecord = record => {
+const createRecord = (record) => {
+  const request = () => ({ type: RECORD_REQUEST });
+  const success = (records) => ({ type: RECORD_SUCCESS, records });
+  const fail = (error) => ({ type: RECORD_FAILURE, error });
 
-  const request = () => ({type: RECORD_REQUEST});
-  const success = records => ({type: RECORD_SUCCESS, records});
-  const fail = error => ({type: RECORD_FAILURE, error});
-
-  return dispatch => {
+  return (dispatch) => {
     dispatch(request());
 
     return http.createRecord(record).then(
-      record => {
+      (record) => {
         dispatch(success(record.data));
       },
-      error => {
+      (error) => {
         dispatch(fail(error.toString()));
         dispatch(alertActions.error(error.toString()));
-      },
+      }
     );
   };
 };
 
 const getRecords = () => {
-
-  const byField = field => {
-    return (a, b) => Date.parse(a[field]) < Date.parse(b[field]) ? 1 : -1;
+  const byField = (field) => {
+    return (a, b) => (Date.parse(a[field]) < Date.parse(b[field]) ? 1 : -1);
   };
 
-  const request = () => ({type: GET_RECORDS_REQUEST});
-  const success = records => ({type: GET_RECORDS_REQUEST_SUCCESS, records});
-  const fail = error => ({type: GET_RECORDS_REQUEST_FAILURE, error});
+  const request = () => ({ type: GET_RECORDS_REQUEST });
+  const success = (records) => ({ type: GET_RECORDS_REQUEST_SUCCESS, records });
+  const fail = (error) => ({ type: GET_RECORDS_REQUEST_FAILURE, error });
 
-  return dispatch => {
+  return (dispatch) => {
     dispatch(request());
 
-   return http.getRecords().then(
-      records => {
+    return http.getRecords().then(
+      (records) => {
         dispatch(success(records.data.sort(byField('created_at'))));
       },
-      error => {
+      (error) => {
         dispatch(fail(error.toString()));
         dispatch(alertActions.error(error.toString()));
-      },
+      }
     );
   };
 };
 
-const deleteRecord = recordId => {
+const deleteRecord = (recordId) => {
+  const request = () => ({ type: DELETE_RECORDS_REQUEST });
+  const success = (record) => ({
+    type: DELETE_RECORDS_REQUEST_SUCCESS,
+    record,
+  });
+  const fail = (error) => ({ type: DELETE_RECORDS_REQUEST_FAILURE, error });
 
-  const request = () => ({type: DELETE_RECORDS_REQUEST});
-  const success = record => ({type: DELETE_RECORDS_REQUEST_SUCCESS, record});
-  const fail = error => ({type: DELETE_RECORDS_REQUEST_FAILURE, error});
-
-  return dispatch => {
+  return (dispatch) => {
     dispatch(request());
 
     return http.deleteRecords(recordId).then(
-      records => {
+      (records) => {
         dispatch(success(records.data));
       },
-      error => {
+      (error) => {
         dispatch(fail(error.toString()));
         dispatch(alertActions.error(error.toString()));
-      },
+      }
     );
   };
 };
 
 const updateRecord = (recordId, description) => {
+  const request = () => ({ type: UPDATE_RECORDS_REQUEST });
+  const success = (records) => ({
+    type: UPDATE_RECORDS_REQUEST_SUCCESS,
+    records,
+  });
+  const fail = (error) => ({ type: UPDATE_RECORDS_REQUEST_FAILURE, error });
 
-  const request = () => ({type: UPDATE_RECORDS_REQUEST});
-  const success = records => ({type: UPDATE_RECORDS_REQUEST_SUCCESS, records});
-  const fail = error => ({type: UPDATE_RECORDS_REQUEST_FAILURE, error});
-
-  return dispatch => {
+  return (dispatch) => {
     dispatch(request());
 
     return http.updateRecords(recordId, description).then(
-      record => {
+      (record) => {
         dispatch(success(record.data));
       },
-      error => {
+      (error) => {
         dispatch(fail(error.toString()));
         dispatch(alertActions.error(error.toString()));
-      },
+      }
     );
   };
 };
 
 const getFilterRecords = (dateFrom, dateTo, records) => {
-  const arr = records.filter(el => checkDate(el, dateFrom, dateTo));
-  return {type: GET_FILTERED_RECORDS, records: arr};
+  const arr = records.filter((el) => checkDate(el, dateFrom, dateTo));
+  return { type: GET_FILTERED_RECORDS, records: arr };
 };
 
-const resetFilter = () => ({type: RESET_FILTERED_RECORDS});
+const resetFilter = () => ({ type: RESET_FILTERED_RECORDS });
 
 const sortRecords = (isSorted, records) => {
-
-  const byField = field => {
+  const byField = (field) => {
     return isSorted
-      ? (a, b) => Date.parse(a[field]) < Date.parse(b[field]) ? 1 : -1
-      : (a, b) => Date.parse(a[field]) > Date.parse(b[field]) ? 1 : -1;
+      ? (a, b) => (Date.parse(a[field]) < Date.parse(b[field]) ? 1 : -1)
+      : (a, b) => (Date.parse(a[field]) > Date.parse(b[field]) ? 1 : -1);
   };
 
   const arr = [...records];
 
   arr.sort(byField('created_at'));
-  return {type: SORT_RECORDS, records: arr};
+  return { type: SORT_RECORDS, records: arr };
 };
 
 export const recordActions = {

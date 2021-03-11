@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
-import {Card, CardContent, Grid} from '@material-ui/core';
+import React, { useState } from 'react';
+import { Card, CardContent, Grid } from '@material-ui/core';
 
-import {useStyles} from './style';
+import { useStyles } from './style';
 import Input from '../Input/Input';
 import Clock from '../Clock/Clock';
-import {Tools} from '../Tools/Tools';
-
+import { Tools } from '../Tools/Tools';
 
 export default function Timer() {
   const classes = useStyles();
@@ -14,15 +13,20 @@ export default function Timer() {
 
   return (
     <Card className={classes.root} variant="outlined">
-      <CardContent>
+      <CardContent className={classes.default}>
         <Grid container spacing={0} className={classes.default}>
           <Grid container item xs={7} className={classes.default}>
-            <Input label={'What are you working on?'} name='task' inputValue={inputValue} setInputValue={setInputValue}/>
+            <Input
+              label={'What are you working on?'}
+              name="task"
+              inputValue={inputValue}
+              setInputValue={setInputValue}
+            />
           </Grid>
           <Grid container item xs={5} className={classes.clock}>
-            <Clock setInputValue={setInputValue}/>
+            <Clock setInputValue={setInputValue} />
           </Grid>
-          <Tools/>
+          <Tools />
         </Grid>
       </CardContent>
     </Card>

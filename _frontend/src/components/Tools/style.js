@@ -10,7 +10,7 @@ export const useStyles = makeStyles((theme) => ({
     padding: '0',
     margin: '0 2% 0 0',
     alignSelf: 'center',
-    alignItems: 'end'
+    alignItems: 'end',
   },
   pickers: {
     display: 'flex',
@@ -20,11 +20,11 @@ export const useStyles = makeStyles((theme) => ({
     paddingLeft: '2%',
   },
   button: {
-    height: '50%'
+    height: '50%',
   },
   rotate: {
     transform: 'rotate(180deg)',
     margin: '0',
     padding: '0',
-  }
+  },
 }));

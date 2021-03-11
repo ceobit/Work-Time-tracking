@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
-import {Create, Delete} from '@material-ui/icons';
+import { Create, Delete } from '@material-ui/icons';
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 import moment from 'moment';
 import {
@@ -12,7 +12,8 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableHead, TablePagination,
+  TableHead,
+  TablePagination,
   TableRow,
   TableSortLabel,
   Toolbar,
@@ -20,27 +21,28 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import {useStyles, useToolbarStyles} from './style';
-import {dateToString, getSeconds, getTotalTime} from '../../aux';
-import {recordActions} from '../../redux/actions';
-import {EditRecord} from '../EditRecord/EditRecord';
-import {Chart} from '../Chart/Chart';
+import { useStyles, useToolbarStyles } from './style';
+import { dateToString, getSeconds, getTotalTime } from '../../aux';
+import { recordActions } from '../../redux/actions';
+import { EditRecord } from '../EditRecord/EditRecord';
+import { Chart } from '../Chart/Chart';
 
 function createData(id, description, timeInterval, duration) {
-  return {id, description, timeInterval, duration};
+  return { id, description, timeInterval, duration };
 }
 
 const createRows = (records = []) => {
   return Array.from(
-    records.map(item =>
+    records.map((item) =>
       createData(
         item._id,
         item.description,
-        `${moment(item.timeStart).format('hh:mm')} ~ ${moment(item.timeFinish).
-          format('hh:mm')}`,
-        item.duration,
-      ),
-    ),
+        `${moment(item.timeStart).format('hh:mm')} ~ ${moment(
+          item.timeFinish
+        ).format('hh:mm')}`,
+        item.duration
+      )
+    )
   );
 };
 
@@ -90,16 +92,11 @@ const headCells = [
     disablePadding: false,
     label: 'Time Interval',
   },
-  {id: 'duration', numeric: false, disablePadding: false, label: 'Duration'},
+  { id: 'duration', numeric: false, disablePadding: false, label: 'Duration' },
 ];
 
 function EnhancedTableHead(props) {
-  const {
-    classes,
-    order,
-    orderBy,
-    onRequestSort,
-  } = props;
+  const { classes, order, orderBy, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -107,9 +104,9 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox"/>
-        {headCells.map((headCell) => (
-          !headCell.hidden ?
+        <TableCell padding="checkbox" />
+        {headCells.map((headCell) =>
+          !headCell.hidden ? (
             <TableCell
               key={headCell.id}
               align={headCell.numeric ? 'right' : 'left'}
@@ -124,12 +121,15 @@ function EnhancedTableHead(props) {
                 {headCell.label}
                 {orderBy === headCell.id ? (
                   <span className={classes.visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </span>
+                    {order === 'desc'
+                      ? 'sorted descending'
+                      : 'sorted ascending'}
+                  </span>
                 ) : null}
               </TableSortLabel>
             </TableCell>
-            : null))}
+          ) : null
+        )}
       </TableRow>
     </TableHead>
   );
@@ -137,7 +137,7 @@ function EnhancedTableHead(props) {
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const {recordId, date, totalTime, handleSelection, chartData} = props;
+  const { recordId, date, totalTime, handleSelection, chartData } = props;
 
   const [numSelected, setNumSelected] = useState(props.numSelected);
   const [isEdit, setIsEdit] = useState(false);
@@ -159,9 +159,10 @@ const EnhancedTableToolbar = (props) => {
   };
 
   const handleDeleteRecord = () => {
-    dispatch(recordActions.deleteRecord(recordId)).
-      then(() => dispatch(recordActions.getRecords()))
-      //.then(() => setNumSelected(0));
+    dispatch(recordActions.deleteRecord(recordId)).then(() =>
+      dispatch(recordActions.getRecords())
+    );
+    //.then(() => setNumSelected(0));
   };
 
   //show/hide chart
@@ -177,19 +178,27 @@ const EnhancedTableToolbar = (props) => {
         })}
       >
         {numSelected > 0 ? (
-          <Typography className={classes.title} color="inherit"
-                      variant="subtitle1" component="div">
+          <Typography
+            className={classes.title}
+            color="inherit"
+            variant="subtitle1"
+            component="div"
+          >
             {numSelected} selected
           </Typography>
         ) : (
           <>
-            <Typography className={classes.title} variant="h6" id="tableTitle"
-                        component="div">
+            <Typography
+              className={classes.title}
+              variant="h6"
+              id="tableTitle"
+              component="div"
+            >
               {!!date ? dateToString(date) : ''}
             </Typography>
             <Tooltip title="Chart">
               <IconButton aria-label="chart" onClick={handleChart}>
-                <DonutLargeIcon/>
+                <DonutLargeIcon />
               </IconButton>
             </Tooltip>
           </>
@@ -199,32 +208,42 @@ const EnhancedTableToolbar = (props) => {
           <>
             <Tooltip title="Edit">
               <IconButton aria-label="edit" onClick={handleEditRecord}>
-                <Create/>
+                <Create />
               </IconButton>
             </Tooltip>
             <Tooltip title="Delete">
               <IconButton aria-label="delete" onClick={handleDeleteRecord}>
-                <Delete/>
+                <Delete />
               </IconButton>
             </Tooltip>
           </>
         ) : (
-          <Typography className={classes.totalTime} variant="subtitle1"
-                      component="div">
+          <Typography
+            className={classes.totalTime}
+            variant="subtitle1"
+            component="div"
+          >
             Total: {totalTime}
           </Typography>
         )}
-        {isEdit &&
-        <EditRecord recordId={recordId} handleClose={handleCloseModal}
-                    setIsEdit={setIsEdit}/>}
+        {isEdit && (
+          <EditRecord
+            recordId={recordId}
+            handleClose={handleCloseModal}
+            setIsEdit={setIsEdit}
+          />
+        )}
       </Toolbar>
-      {showChart &&
-      <div className={classes.chart}><Chart data={chartData}/></div>}
+      {showChart && (
+        <div className={classes.chart}>
+          <Chart data={chartData} />
+        </div>
+      )}
     </div>
   );
 };
 
-export const WorkTimeRecords = ({records}) => {
+export const WorkTimeRecords = ({ records }) => {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('date');
@@ -242,8 +261,10 @@ export const WorkTimeRecords = ({records}) => {
 
   const totalTime = getTotalTime(rows);
 
-  const chartData = rows.map(
-    el => ({name: el.description, value: getSeconds(el.duration)}));
+  const chartData = rows.map((el) => ({
+    name: el.description,
+    value: getSeconds(el.duration),
+  }));
 
   const handleClick = (event, name) => {
     selected === name ? setSelected(0) : setSelected(name);
@@ -263,16 +284,19 @@ export const WorkTimeRecords = ({records}) => {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected ? 1 : 0}
-                              date={records[0].created_at} recordId={selected}
-                              totalTime={totalTime}
-                              handleSelection={handleClick}
-                              chartData={chartData}/>
+        <EnhancedTableToolbar
+          numSelected={selected ? 1 : 0}
+          date={records[0].created_at}
+          recordId={selected}
+          totalTime={totalTime}
+          handleSelection={handleClick}
+          chartData={chartData}
+        />
         <TableContainer>
           <Table
             className={classes.table}
             aria-labelledby="tableTitle"
-            size='small'
+            size="small"
             aria-label="enhanced table"
           >
             <EnhancedTableHead
@@ -284,9 +308,9 @@ export const WorkTimeRecords = ({records}) => {
               rowCount={rows.length}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy)).
-                slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).
-                map((row, index) => {
+              {stableSort(rows, getComparator(order, orderBy))
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, index) => {
                   const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -304,7 +328,7 @@ export const WorkTimeRecords = ({records}) => {
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
-                          inputProps={{'aria-labelledby': labelId}}
+                          inputProps={{ 'aria-labelledby': labelId }}
                           className={classes.empty}
                         />
                       </TableCell>

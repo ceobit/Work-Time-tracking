@@ -15,13 +15,11 @@ export const useStyles = makeStyles((theme) => ({
   },
   button: {
     alignSelf: 'flex-end',
-    marginRight: '5%'
-  }
+    marginRight: '5%',
+  },
 }));
 
-
 export const getModalStyle = () => {
-
   const top = 50;
   const left = 50;
 
@@ -30,4 +28,4 @@ export const getModalStyle = () => {
     left: `${left}%`,
     transform: `translate(-${top}%, -${left}%)`,
   };
-}
+};

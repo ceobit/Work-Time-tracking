@@ -11,6 +11,6 @@ export const registrationReducer = (state = initialState, action) => {
     case REGISTER_FAILURE:
       return {};
     default:
-      return state
+      return state;
   }
-}
+};

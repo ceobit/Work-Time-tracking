@@ -12,6 +12,6 @@ export const useStyles = makeStyles((theme) => ({
   },
   user: {
     color: '#fff',
-    fontSize: '14px'
-  }
+    fontSize: '14px',
+  },
 }));

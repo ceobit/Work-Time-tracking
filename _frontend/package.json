@@ -53,6 +53,10 @@
     "clsx": "^1.1.1",
     "html-webpack-plugin": "^5.2.0",
     "path": "^0.12.7",
+    "prettier": "^2.2.1",
     "uuid": "^8.3.2"
+  },
+  "prettier": {
+    "singleQuote": true
   }
 }

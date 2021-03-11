@@ -1,18 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {IconButton, Tooltip} from '@material-ui/core';
-import {Search} from '@material-ui/icons';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { IconButton, Tooltip } from '@material-ui/core';
+import { Search } from '@material-ui/icons';
 import SortIcon from '@material-ui/icons/Sort';
 import Button from '@material-ui/core/Button';
 
-import {useStyles} from './style';
-import {DatePicker} from '../DatePicker/DatePicker';
-import {recordActions} from '../../redux/actions';
+import { useStyles } from './style';
+import { DatePicker } from '../DatePicker/DatePicker';
+import { recordActions } from '../../redux/actions';
 
 export const Tools = () => {
-
-  const records = useSelector(state => state.fetched_records.records);
-  const filter = useSelector(state => state.filter.records);
+  const records = useSelector((state) => state.fetched_records.records);
+  const filter = useSelector((state) => state.filter.records);
   const dispatch = useDispatch();
   const [showPicker, setShowPicker] = useState(false);
   const [dateFrom, setDateFrom] = useState('');
@@ -24,8 +23,8 @@ export const Tools = () => {
     setIsSorted('');
   };
 
-  const onChangeDate = e => {
-    const {id, value} = e.target;
+  const onChangeDate = (e) => {
+    const { id, value } = e.target;
     id === 'dateFrom' ? setDateFrom(value) : setDateTo(value);
   };
 
@@ -40,54 +39,61 @@ export const Tools = () => {
 
   const handleSort = () => {
     setIsSorted(!isSorted);
-  }
+  };
 
   useEffect(() => {
     isSorted
       ? dispatch(recordActions.sortRecords(isSorted, records))
       : dispatch(recordActions.sortRecords(isSorted, filter));
-  }, [isSorted])
+  }, [isSorted]);
 
   const classes = useStyles();
 
   return (
     <div className={classes.tools}>
-      {!showPicker
-        ? <>
+      {!showPicker ? (
+        <>
           <Tooltip title="Filter" className={classes.tool}>
             <IconButton aria-label="filter" onClick={handleFilterIcon}>
-              <Search/>
+              <Search />
             </IconButton>
           </Tooltip>
           <Tooltip title="Sort" className={classes.tool}>
             <IconButton aria-label="sort" onClick={handleSort}>
-              <div className={!isSorted ? classes.rotate : null}><SortIcon/></div>
+              <div className={!isSorted ? classes.rotate : null}>
+                <SortIcon />
+              </div>
             </IconButton>
           </Tooltip>
         </>
-        :
+      ) : (
         <div className={classes.pickers}>
-          <DatePicker label="From" id='dateFrom' onChange={onChangeDate}/>
-          <DatePicker label="To" id='dateTo' onChange={onChangeDate}/>
+          <DatePicker label="From" id="dateFrom" onChange={onChangeDate} />
+          <DatePicker label="To" id="dateTo" onChange={onChangeDate} />
           <div className={classes.button}>
-            <Button variant='outlined'
-                    color='primary'
-                    size='small'
-                    onClick={handleFilter}>
+            <Button
+              variant="outlined"
+              color="primary"
+              size="small"
+              onClick={handleFilter}
+            >
               Ok
             </Button>
           </div>
         </div>
-      }
-      {filter.length ?
+      )}
+      {filter.length ? (
         <div className={classes.button}>
-          <Button variant='outlined'
-                  color='primary'
-                  size='small'
-                  onClick={handleResetFilter}>
+          <Button
+            variant="outlined"
+            color="primary"
+            size="small"
+            onClick={handleResetFilter}
+          >
             Reset
-          </Button></div> : null}
+          </Button>
+        </div>
+      ) : null}
     </div>
   );
-}
-
+};

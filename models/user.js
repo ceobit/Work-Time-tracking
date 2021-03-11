@@ -18,17 +18,18 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-
 userSchema.statics.findUserByCredentials = function (username, password, next) {
-  return this.findOne({ username }).select('+password')
+  return this.findOne({ username })
+    .select('+password')
     .orFail(() => new UnauthorizedError(ErrorLoginOrPassMessage))
-    .then((user) => bcrypt.compare(password, user.password)
-      .then((matched) => {
+    .then((user) =>
+      bcrypt.compare(password, user.password).then((matched) => {
         if (!matched) {
           return Promise.reject(new UnauthorizedError(ErrorLoginOrPassMessage));
         }
         return user;
-      }))
+      })
+    )
     .catch(next);
 };
 

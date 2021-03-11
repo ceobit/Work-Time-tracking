@@ -11,11 +11,11 @@ const initialState = {
 export const deleteReducer = (state = initialState, action) => {
   switch (action.type) {
     case DELETE_RECORDS_REQUEST:
-      return {...state, sending: true};
+      return { ...state, sending: true };
     case DELETE_RECORDS_REQUEST_SUCCESS:
       return { ...state, sending: false };
     case DELETE_RECORDS_REQUEST_FAILURE:
-      return {...state, sending: false};
+      return { ...state, sending: false };
     default:
       return state;
   }
