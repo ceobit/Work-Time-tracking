@@ -1,4 +1,4 @@
- export const splitArray = (recordsArray, filter) => {
+ export const splitArray = (recordsArray) => {
    const getDate = (date) => date.slice(0, 10);
 
    if (recordsArray.length === 0) {

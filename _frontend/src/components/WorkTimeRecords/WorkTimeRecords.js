@@ -3,8 +3,6 @@ import {useDispatch} from 'react-redux';
 import clsx from 'clsx';
 import {Create, Delete} from '@material-ui/icons';
 import moment from 'moment';
-
-import {useStyles, useToolbarStyles} from './style';
 import {
   Checkbox,
   IconButton,
@@ -13,15 +11,16 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
-  TablePagination,
+  TableHead, TablePagination,
   TableRow,
   TableSortLabel,
   Toolbar,
   Tooltip,
   Typography,
 } from '@material-ui/core';
-import {dateToString} from '../../aux';
+
+import {useStyles, useToolbarStyles} from './style';
+import {dateToString, getTotalTime} from '../../aux';
 import {recordActions} from '../../redux/actions';
 import {EditRecord} from '../EditRecord/EditRecord';
 
@@ -136,7 +135,7 @@ function EnhancedTableHead(props) {
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const {recordId, date} = props;
+  const {recordId, date, totalTime, handleSelection} = props;
 
   const [numSelected, setNumSelected] = useState(props.numSelected);
   const [isEdit, setIsEdit] = useState(false);
@@ -144,17 +143,22 @@ const EnhancedTableToolbar = (props) => {
 
   useEffect(() => {
     setNumSelected(props.numSelected);
-  }, [props.numSelected, numSelected]);
+  }, [props.numSelected]);
 
-
+  //open a Modal window
   const handleEditRecord = () => {
     setIsEdit(!isEdit);
-  }
-  // Доделать очистку от корзины
+  };
+
+  const handleCloseModal = () => {
+    setIsEdit(false);
+    handleSelection(recordId);
+  };
+
   const handleDeleteRecord = () => {
     dispatch(recordActions.deleteRecord(recordId)).
-      then(() => dispatch(recordActions.getRecords()));
-    setNumSelected(0);
+      then(() => dispatch(recordActions.getRecords())).
+      then(() => setNumSelected(0));
   };
 
   return (
@@ -191,10 +195,11 @@ const EnhancedTableToolbar = (props) => {
       ) : (
         <Typography className={classes.totalTime} variant="subtitle1"
                     component="div">
-          Total: 00:00:00
+          Total: {totalTime}
         </Typography>
       )}
-      {isEdit && <EditRecord recordId={recordId}/>}
+      {isEdit && <EditRecord recordId={recordId} handleClose={handleCloseModal}
+                             setIsEdit={setIsEdit}/>}
     </Toolbar>
   );
 };
@@ -215,6 +220,8 @@ export const WorkTimeRecords = ({records}) => {
 
   const rows = createRows(records);
 
+  const totalTime = getTotalTime(rows);
+
   const handleClick = (event, name) => {
     selected === name ? setSelected(0) : setSelected(name);
   };
@@ -234,8 +241,9 @@ export const WorkTimeRecords = ({records}) => {
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <EnhancedTableToolbar numSelected={selected ? 1 : 0}
-                              date={records[0].created_at} recordId={selected}/>
-        {/*<EnhancedTableToolbar numSelected={selected ? 1 : 0} date={0}/>*/}
+                              date={records[0].created_at} recordId={selected}
+                              totalTime={totalTime}
+                              handleSelection={handleClick}/>
         <TableContainer>
           <Table
             className={classes.table}
@@ -267,32 +275,36 @@ export const WorkTimeRecords = ({records}) => {
                       tabIndex={-1}
                       key={row.id}
                       selected={isItemSelected}
+                      className={isItemSelected ? classes.row : {}}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{'aria-labelledby': labelId}}
+                          className={classes.empty}
                         />
                       </TableCell>
-                      <TableCell align="left">{row.description}</TableCell>
+                      <TableCell align="left" className={classes.cell}>
+                        {row.description}
+                      </TableCell>
                       <TableCell align="left">{row.timeInterval}</TableCell>
                       <TableCell align="left">{row.duration}</TableCell>
                     </TableRow>
                   );
                 })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
-      </Paper>
-    </div>
-  );
-};
+                </TableBody>
+                </Table>
+                </TableContainer>
+                <TablePagination
+                rowsPerPageOptions={[5, 10]}
+                component="div"
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+                />
+                </Paper>
+                </div>
+                );
+              };

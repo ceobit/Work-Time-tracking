@@ -40,7 +40,7 @@ export const WorkTimeHistory = () => {
 
   return (
     <>
-      {splitArray(recordArray, filter).map(
+      {splitArray(recordArray).map(
         (record, index) => <WorkTimeRecords key={index} records={record}/>)}
     </>
   );

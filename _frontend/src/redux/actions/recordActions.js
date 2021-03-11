@@ -42,6 +42,10 @@ const createRecord = record => {
 
 const getRecords = () => {
 
+  const byField = field => {
+    return (a, b) => Date.parse(a[field]) < Date.parse(b[field]) ? 1 : -1;
+  };
+
   const request = () => ({type: GET_RECORDS_REQUEST});
   const success = records => ({type: GET_RECORDS_REQUEST_SUCCESS, records});
   const fail = error => ({type: GET_RECORDS_REQUEST_FAILURE, error});
@@ -49,9 +53,9 @@ const getRecords = () => {
   return dispatch => {
     dispatch(request());
 
-    http.getRecords().then(
+   return http.getRecords().then(
       records => {
-        dispatch(success(records.data));
+        dispatch(success(records.data.sort(byField('created_at'))));
       },
       error => {
         dispatch(fail(error.toString()));
