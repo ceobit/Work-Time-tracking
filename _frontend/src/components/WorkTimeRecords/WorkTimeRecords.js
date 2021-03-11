@@ -28,23 +28,24 @@ import { EditRecord } from '../EditRecord/EditRecord';
 import { Chart } from '../Chart/Chart';
 
 function createData(id, description, timeInterval, duration) {
-  return { id, description, timeInterval, duration };
+  return {
+    id,
+    description,
+    timeInterval,
+    duration,
+  };
 }
 
-const createRows = (records = []) => {
-  return Array.from(
-    records.map((item) =>
-      createData(
-        item._id,
-        item.description,
-        `${moment(item.timeStart).format('hh:mm')} ~ ${moment(
-          item.timeFinish
-        ).format('hh:mm')}`,
-        item.duration
-      )
-    )
-  );
-};
+const createRows = (records = []) => Array.from(
+  records.map((item) => createData(
+    item._id,
+    item.description,
+    `${moment(item.timeStart).format('hh:mm')} ~ ${moment(
+      item.timeFinish,
+    ).format('hh:mm')}`,
+    item.duration,
+  )),
+);
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -92,11 +93,18 @@ const headCells = [
     disablePadding: false,
     label: 'Time Interval',
   },
-  { id: 'duration', numeric: false, disablePadding: false, label: 'Duration' },
+  {
+    id: 'duration',
+    numeric: false,
+    disablePadding: false,
+    label: 'Duration',
+  },
 ];
 
 function EnhancedTableHead(props) {
-  const { classes, order, orderBy, onRequestSort } = props;
+  const {
+    classes, order, orderBy, onRequestSort,
+  } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -105,31 +113,29 @@ function EnhancedTableHead(props) {
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox" />
-        {headCells.map((headCell) =>
-          !headCell.hidden ? (
-            <TableCell
-              key={headCell.id}
-              align={headCell.numeric ? 'right' : 'left'}
-              padding={headCell.disablePadding ? 'none' : 'default'}
-              sortDirection={orderBy === headCell.id ? order : false}
+        {headCells.map((headCell) => (!headCell.hidden ? (
+          <TableCell
+            key={headCell.id}
+            align={headCell.numeric ? 'right' : 'left'}
+            padding={headCell.disablePadding ? 'none' : 'default'}
+            sortDirection={orderBy === headCell.id ? order : false}
+          >
+            <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={createSortHandler(headCell.id)}
             >
-              <TableSortLabel
-                active={orderBy === headCell.id}
-                direction={orderBy === headCell.id ? order : 'asc'}
-                onClick={createSortHandler(headCell.id)}
-              >
-                {headCell.label}
-                {orderBy === headCell.id ? (
-                  <span className={classes.visuallyHidden}>
-                    {order === 'desc'
-                      ? 'sorted descending'
-                      : 'sorted ascending'}
-                  </span>
-                ) : null}
-              </TableSortLabel>
-            </TableCell>
-          ) : null
-        )}
+              {headCell.label}
+              {orderBy === headCell.id ? (
+                <span className={classes.visuallyHidden}>
+                  {order === 'desc'
+                    ? 'sorted descending'
+                    : 'sorted ascending'}
+                </span>
+              ) : null}
+            </TableSortLabel>
+          </TableCell>
+        ) : null))}
       </TableRow>
     </TableHead>
   );
@@ -137,7 +143,9 @@ function EnhancedTableHead(props) {
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { recordId, date, totalTime, handleSelection, chartData } = props;
+  const {
+    recordId, date, totalTime, handleSelection, chartData,
+  } = props;
 
   const [numSelected, setNumSelected] = useState(props.numSelected);
   const [isEdit, setIsEdit] = useState(false);
@@ -148,7 +156,7 @@ const EnhancedTableToolbar = (props) => {
     setNumSelected(props.numSelected);
   }, [props.numSelected]);
 
-  //open a Modal window
+  // open a Modal window
   const handleEditRecord = () => {
     setIsEdit(!isEdit);
   };
@@ -159,13 +167,11 @@ const EnhancedTableToolbar = (props) => {
   };
 
   const handleDeleteRecord = () => {
-    dispatch(recordActions.deleteRecord(recordId)).then(() =>
-      dispatch(recordActions.getRecords())
-    );
-    //.then(() => setNumSelected(0));
+    dispatch(recordActions.deleteRecord(recordId)).then(() => dispatch(recordActions.getRecords()));
+    // .then(() => setNumSelected(0));
   };
 
-  //show/hide chart
+  // show/hide chart
   const handleChart = () => {
     setShowChart(!showChart);
   };
@@ -184,7 +190,9 @@ const EnhancedTableToolbar = (props) => {
             variant="subtitle1"
             component="div"
           >
-            {numSelected} selected
+            {numSelected}
+            {' '}
+            selected
           </Typography>
         ) : (
           <>
@@ -194,7 +202,7 @@ const EnhancedTableToolbar = (props) => {
               id="tableTitle"
               component="div"
             >
-              {!!date ? dateToString(date) : ''}
+              {date ? dateToString(date) : ''}
             </Typography>
             <Tooltip title="Chart">
               <IconButton aria-label="chart" onClick={handleChart}>
@@ -223,7 +231,9 @@ const EnhancedTableToolbar = (props) => {
             variant="subtitle1"
             component="div"
           >
-            Total: {totalTime}
+            Total:
+            {' '}
+            {totalTime}
           </Typography>
         )}
         {isEdit && (

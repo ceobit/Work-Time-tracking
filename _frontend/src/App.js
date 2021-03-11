@@ -8,6 +8,7 @@ import { useRoutes } from './routes';
 import './App.css';
 import { alertActions } from './redux/actions';
 
+// eslint-disable-next-line import/prefer-default-export
 export const App = () => {
   const loggingIn = useSelector((state) => state.authentication.loggingIn);
   const routes = useRoutes(loggingIn);
@@ -16,7 +17,7 @@ export const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    history.listen((location, action) => {
+    history.listen(() => {
       // clear alert on location change
       dispatch(alertActions.clear());
     });

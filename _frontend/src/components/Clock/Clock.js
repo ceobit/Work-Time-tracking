@@ -41,10 +41,9 @@ export default function App({ setInputValue }) {
   const handleSaveTime = () => {
     setActiveTime({ ...initialState });
     dispatch(timerActions.createDuration(formatDate(activeTime)));
-    //promise chain
-    dispatch(recordActions.createRecord(store.getState().timer)).then(() =>
-      dispatch(recordActions.getRecords())
-    );
+    // promise chain
+    dispatch(recordActions.createRecord(store.getState().timer))
+      .then(() => dispatch(recordActions.getRecords()));
 
     setInputValue('');
   };

@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from 'react';
-import { Pie, PieChart, Sector, Text } from 'recharts';
+import {
+  Pie, PieChart, Sector, Text,
+} from 'recharts';
 
 const renderActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
@@ -60,7 +62,9 @@ const renderActiveShape = (props) => {
         y={ey}
         textAnchor={textAnchor}
         fill="#333"
-      >{`PV ${value}`}</text>
+      >
+        {`PV ${value}`}
+      </text>
       <text
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
@@ -80,7 +84,7 @@ export const Chart = ({ data }) => {
     (_, index) => {
       setActiveIndex(index);
     },
-    [setActiveIndex]
+    [setActiveIndex],
   );
 
   return (

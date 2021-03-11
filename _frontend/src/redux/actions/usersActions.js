@@ -18,8 +18,6 @@ const login = (username, password, from) => {
 
   return (dispatch) => {
     dispatch(request({ username }));
-
-    console.log('from', from);
     http.login(username, password).then(
       (user) => {
         dispatch(success(user));
@@ -28,7 +26,7 @@ const login = (username, password, from) => {
       (error) => {
         dispatch(fail(error.toString()));
         dispatch(alertActions.error(error.toString()));
-      }
+      },
     );
   };
 };
@@ -47,7 +45,7 @@ const register = (user) => {
     dispatch(request(user));
 
     http.register(user).then(
-      (user) => {
+      () => {
         dispatch(success());
         history.push('/');
         dispatch(alertActions.success('Registration successful'));
@@ -55,7 +53,7 @@ const register = (user) => {
       (error) => {
         dispatch(fail(error.toString()));
         dispatch(alertActions.error(error.toString()));
-      }
+      },
     );
   };
 };

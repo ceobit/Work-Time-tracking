@@ -9,12 +9,12 @@ import {
   Paper,
   Grid,
   Typography,
+  Link,
 } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { Link } from '@material-ui/core';
 
 import { useStyles } from './style';
-import { usersActions } from '../../redux/actions';
+import { recordActions, usersActions } from '../../redux/actions';
 import { history } from '../../aux';
 
 export const AuthPage = () => {
@@ -26,13 +26,14 @@ export const AuthPage = () => {
   });
   const [submitted, setSubmitted] = useState(false);
   const { username, password } = inputs;
-  // const loggingIn = useSelector(state => state.authentication.loggingIn); //Нужен для спинера на кнопке
   const dispatch = useDispatch();
   const location = useLocation();
 
   // reset login status
   useEffect(() => {
     dispatch(usersActions.logout());
+    dispatch(recordActions.resetFilter());
+    dispatch(recordActions.resetRecords());
   }, []);
 
   const handleChange = (e) => {
@@ -119,7 +120,8 @@ export const AuthPage = () => {
               <Grid item>
                 <Link onClick={() => history.push('/register')}>
                   {' '}
-                  {"Don't have an account? Sign Up"}{' '}
+                  Don't have an account? Sign Up
+                  {' '}
                 </Link>
               </Grid>
             </Grid>

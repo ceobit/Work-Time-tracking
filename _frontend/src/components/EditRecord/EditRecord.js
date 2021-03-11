@@ -16,15 +16,14 @@ export const EditRecord = ({ recordId, handleClose, setIsEdit }) => {
   const description = useSelector((state) => state.timer.description);
 
   const handleSave = () => {
-    dispatch(recordActions.updateRecord(recordId, description)).then(() =>
-      dispatch(recordActions.getRecords())
-    );
+    dispatch(recordActions.updateRecord(recordId, description))
+      .then(() => dispatch(recordActions.getRecords()));
     setIsEdit(false);
   };
 
   return (
     <Modal
-      open={true}
+      open
       onClose={handleClose}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"

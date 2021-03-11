@@ -9,6 +9,6 @@ export const splitArray = (recordsArray) => {
     recordsArray.flat().reduce((acc, x) => {
       acc[getDate(x.created_at)] = [...(acc[getDate(x.created_at)] || []), x];
       return acc;
-    }, {})
+    }, {}),
   );
 };

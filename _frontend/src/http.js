@@ -1,4 +1,4 @@
-//auth
+// auth
 const login = (username, password) => {
   const requestOptions = {
     method: 'POST',
@@ -6,10 +6,10 @@ const login = (username, password) => {
     body: JSON.stringify({ username, password }),
   };
 
-  return fetch(`/api/signin`, requestOptions)
+  return fetch('/api/signin', requestOptions)
     .then(handleResponse)
     .then((user) => {
-      // store user details and jwt token in local storage to keep user logged in between page refreshes
+      // store user details and jwt token in local storage to keep user logged in between page ref
       localStorage.setItem('user', JSON.stringify(user));
 
       return user;
@@ -28,10 +28,10 @@ const register = (user) => {
     body: JSON.stringify(user),
   };
 
-  return fetch(`/api/signup`, requestOptions).then(handleResponse);
+  return fetch('/api/signup', requestOptions).then(handleResponse);
 };
 
-//Date Records
+// Date Records
 
 const createRecord = (properties) => {
   const requestOptions = {
@@ -40,11 +40,9 @@ const createRecord = (properties) => {
     body: JSON.stringify({ ...properties }),
   };
 
-  return fetch(`/api/create`, requestOptions)
+  return fetch('/api/create', requestOptions)
     .then(handleResponse)
-    .then((records) => {
-      return records;
-    });
+    .then((records) => records);
 };
 
 const getRecords = () => {
@@ -53,11 +51,9 @@ const getRecords = () => {
     headers: { 'Content-Type': 'application/json' },
   };
 
-  return fetch(`/api/records`, requestOptions)
+  return fetch('/api/records', requestOptions)
     .then(handleResponse)
-    .then((record) => {
-      return record;
-    });
+    .then((record) => record);
 };
 
 const deleteRecords = (recordId) => {
@@ -68,9 +64,7 @@ const deleteRecords = (recordId) => {
 
   return fetch(`/api/delete/${recordId}`, requestOptions)
     .then(handleResponse)
-    .then((record) => {
-      return record;
-    });
+    .then((record) => record);
 };
 
 const updateRecords = (recordId, description) => {
@@ -82,14 +76,12 @@ const updateRecords = (recordId, description) => {
 
   return fetch(`/api/patch/${recordId}`, requestOptions)
     .then(handleResponse)
-    .then((record) => {
-      return record;
-    });
+    .then((record) => record);
 };
 
-//Common
+// Common
 
-const handleResponse = (response) => {
+function handleResponse(response) {
   return response.text().then((text) => {
     const data = text && JSON.parse(text);
     if (!response.ok) {
@@ -105,7 +97,7 @@ const handleResponse = (response) => {
 
     return data;
   });
-};
+}
 
 export const http = {
   login,

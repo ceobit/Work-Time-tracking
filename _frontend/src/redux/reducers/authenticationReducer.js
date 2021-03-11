@@ -1,6 +1,8 @@
-import { LOGOUT, LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS } from '../types';
+import {
+  LOGOUT, LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS,
+} from '../types';
 
-let user = JSON.parse(localStorage.getItem('user'));
+const user = JSON.parse(localStorage.getItem('user'));
 const initialState = user ? { loggedIn: true, user } : {};
 
 export const authenticationReducer = (state = initialState, action) => {

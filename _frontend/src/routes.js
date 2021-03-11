@@ -6,7 +6,6 @@ import { RegisterPage } from './pages/RegisterPage';
 import { MainPage } from './pages/MainPage';
 
 export const useRoutes = (isAuth) => {
-  console.log('isAuth', isAuth);
   if (isAuth) {
     return (
       <Switch>

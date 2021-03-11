@@ -17,7 +17,7 @@ export default function Timer() {
         <Grid container spacing={0} className={classes.default}>
           <Grid container item xs={7} className={classes.default}>
             <Input
-              label={'What are you working on?'}
+              label="What are you working on?"
               name="task"
               inputValue={inputValue}
               setInputValue={setInputValue}

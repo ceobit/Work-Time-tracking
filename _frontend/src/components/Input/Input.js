@@ -5,7 +5,9 @@ import { useDispatch } from 'react-redux';
 import { useStyles } from './style';
 import { timerActions } from '../../redux/actions';
 
-export default function Input({ label, name, inputValue, setInputValue }) {
+export default function Input({
+  label, name, inputValue, setInputValue,
+}) {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -24,7 +26,7 @@ export default function Input({ label, name, inputValue, setInputValue }) {
         label={label}
         variant="outlined"
         size="small"
-        autoFocus={true}
+        autoFocus
         onChange={handleChange}
       />
     </form>

@@ -10,6 +10,7 @@ import {
   RECORD_REQUEST,
   RECORD_SUCCESS,
   RESET_FILTERED_RECORDS,
+  RESET_RECORDS,
   SORT_RECORDS,
   UPDATE_RECORDS_REQUEST,
   UPDATE_RECORDS_REQUEST_FAILURE,
@@ -34,15 +35,13 @@ const createRecord = (record) => {
       (error) => {
         dispatch(fail(error.toString()));
         dispatch(alertActions.error(error.toString()));
-      }
+      },
     );
   };
 };
 
 const getRecords = () => {
-  const byField = (field) => {
-    return (a, b) => (Date.parse(a[field]) < Date.parse(b[field]) ? 1 : -1);
-  };
+  const byField = (field) => (a, b) => (Date.parse(a[field]) < Date.parse(b[field]) ? 1 : -1);
 
   const request = () => ({ type: GET_RECORDS_REQUEST });
   const success = (records) => ({ type: GET_RECORDS_REQUEST_SUCCESS, records });
@@ -58,7 +57,7 @@ const getRecords = () => {
       (error) => {
         dispatch(fail(error.toString()));
         dispatch(alertActions.error(error.toString()));
-      }
+      },
     );
   };
 };
@@ -81,7 +80,7 @@ const deleteRecord = (recordId) => {
       (error) => {
         dispatch(fail(error.toString()));
         dispatch(alertActions.error(error.toString()));
-      }
+      },
     );
   };
 };
@@ -104,7 +103,7 @@ const updateRecord = (recordId, description) => {
       (error) => {
         dispatch(fail(error.toString()));
         dispatch(alertActions.error(error.toString()));
-      }
+      },
     );
   };
 };
@@ -115,13 +114,12 @@ const getFilterRecords = (dateFrom, dateTo, records) => {
 };
 
 const resetFilter = () => ({ type: RESET_FILTERED_RECORDS });
+const resetRecords = () => ({ type: RESET_RECORDS });
 
 const sortRecords = (isSorted, records) => {
-  const byField = (field) => {
-    return isSorted
-      ? (a, b) => (Date.parse(a[field]) < Date.parse(b[field]) ? 1 : -1)
-      : (a, b) => (Date.parse(a[field]) > Date.parse(b[field]) ? 1 : -1);
-  };
+  const byField = (field) => (isSorted
+    ? (a, b) => (Date.parse(a[field]) < Date.parse(b[field]) ? 1 : -1)
+    : (a, b) => (Date.parse(a[field]) > Date.parse(b[field]) ? 1 : -1));
 
   const arr = [...records];
 
@@ -136,5 +134,6 @@ export const recordActions = {
   updateRecord,
   getFilterRecords,
   resetFilter,
+  resetRecords,
   sortRecords,
 };
