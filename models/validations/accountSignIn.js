@@ -3,7 +3,7 @@ const { Joi } = require('celebrate');
 const accountSignIn = {
   body: Joi.object().keys({
     username: Joi.string().required().min(2).max(40),
-    password: Joi.string().required().min(8),
+    password: Joi.string().required().min(6),
   }),
 };
 

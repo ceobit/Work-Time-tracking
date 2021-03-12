@@ -1,6 +1,6 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useStyles } from './style';
 import { alertActions, timerActions } from '../../redux/actions';
@@ -9,12 +9,13 @@ export default function Input({ label, name, inputValue, setInputValue }) {
   const classes = useStyles();
 
   const dispatch = useDispatch();
+  const alert = useSelector((state) => state.alertReducer.message);
 
   const handleChange = (e) => {
     const { value } = e.target;
     setInputValue(value);
     dispatch(timerActions.createDescription(value));
-    name === 'task' ? dispatch(alertActions.clear()) : null;
+    name === 'task' && alert ? dispatch(alertActions.clear()) : null;
   };
 
   return (

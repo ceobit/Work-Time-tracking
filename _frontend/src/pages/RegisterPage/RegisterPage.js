@@ -23,6 +23,7 @@ export const RegisterPage = () => {
     password: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [errorText, setErrorText] = useState('');
   const { username, password } = user;
   const dispatch = useDispatch();
 
@@ -34,6 +35,7 @@ export const RegisterPage = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser((user) => ({ ...user, [name]: value }));
+    value.length < 6 ? setErrorText('Password should be 6 charters at least') : setErrorText('')
   };
 
   const handleSubmit = (e) => {
@@ -83,11 +85,17 @@ export const RegisterPage = () => {
                 label="Password"
                 type="password"
                 autoComplete="current-password"
+                error={!!errorText}
                 onChange={handleChange}
               />
               {submitted && !password && (
                 <Typography variant="subtitle2" component="h1" color="error">
                   Password is required
+                </Typography>
+              )}
+              {errorText && (
+                <Typography variant="subtitle2" component="h1" color="error">
+                  {errorText}
                 </Typography>
               )}
             </Grid>

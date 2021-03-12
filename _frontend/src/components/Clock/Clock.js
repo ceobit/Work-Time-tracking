@@ -43,6 +43,7 @@ export default function App({ setInputValue, inputValue }) {
       setActiveTime({ ...initialState });
       dispatch(timerActions.createDuration(formatDate(activeTime)));
       // promise chain
+      dispatch(recordActions.resetFilter());
       dispatch(recordActions.createRecord(store.getState().timer)).then(() =>
         dispatch(recordActions.getRecords())
       );

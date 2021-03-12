@@ -14,7 +14,7 @@ import {
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import { useStyles } from './style';
-import { recordActions, usersActions } from '../../redux/actions';
+import {alertActions, recordActions, usersActions} from '../../redux/actions';
 import { history } from '../../aux';
 
 export const AuthPage = () => {
@@ -34,6 +34,7 @@ export const AuthPage = () => {
     dispatch(usersActions.logout());
     dispatch(recordActions.resetFilter());
     dispatch(recordActions.resetRecords());
+    dispatch(alertActions.clear());
   }, [dispatch]);
 
   const handleChange = (e) => {
