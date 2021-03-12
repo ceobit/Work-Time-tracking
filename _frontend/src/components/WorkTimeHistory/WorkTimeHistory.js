@@ -17,7 +17,7 @@ export const WorkTimeHistory = () => {
 
   useEffect(() => {
     dispatch(recordActions.getRecords());
-  }, []);
+  }, [dispatch]);
 
   if (!records.length) {
     return (

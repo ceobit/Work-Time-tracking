@@ -29,7 +29,7 @@ export const RegisterPage = () => {
   // reset login status
   useEffect(() => {
     dispatch(usersActions.logout());
-  }, []);
+  }, [dispatch]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

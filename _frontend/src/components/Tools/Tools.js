@@ -45,7 +45,7 @@ export const Tools = () => {
     isSorted
       ? dispatch(recordActions.sortRecords(isSorted, records))
       : dispatch(recordActions.sortRecords(isSorted, filter));
-  }, [isSorted]);
+  }, [isSorted, dispatch]);
 
   const classes = useStyles();
 

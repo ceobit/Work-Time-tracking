@@ -34,7 +34,7 @@ export const AuthPage = () => {
     dispatch(usersActions.logout());
     dispatch(recordActions.resetFilter());
     dispatch(recordActions.resetRecords());
-  }, []);
+  }, [dispatch]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

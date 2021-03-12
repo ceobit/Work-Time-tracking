@@ -4,7 +4,7 @@
   "description": "test project",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "cross-env NODE_ENV=production node app.js",
     "server": "nodemon app.js",
     "front": "npm run start --prefix _frontend webpack serve",
     "front:install": "npm install --prefix _frontend",

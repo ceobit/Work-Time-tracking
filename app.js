@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-const { errors } = require('celebrate');
 const path = require('path');
 
 const routers = require('./routers');
@@ -50,7 +49,7 @@ app.use('*', () => {
 });
 
 if (process.env.NODE_ENV === 'production') {
-  app.use('/', express.static(path.join(__dirname, 'front', 'build')));
+  app.use('/', express.static(path.join(__dirname, '_front', 'build')));
 
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '_front', 'build', 'index.html'));
