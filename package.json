@@ -4,7 +4,7 @@
   "description": "test project",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "cross-env NODE_ENV=production node app.js",
     "server": "nodemon app.js",
     "front": "npm run start --prefix _frontend webpack serve",
     "front:install": "npm install --prefix _frontend",
@@ -43,6 +43,10 @@
   "devDependencies": {
     "concurrently": "^6.0.0",
     "cross-env": "^7.0.3",
+    "eslint": "^7.21.0",
     "nodemon": "^2.0.7"
+  },
+  "prettier": {
+    "singleQuote": true
   }
 }

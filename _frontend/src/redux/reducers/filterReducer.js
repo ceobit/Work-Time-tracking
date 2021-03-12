@@ -1,7 +1,7 @@
 import {
   GET_FILTERED_RECORDS,
   RESET_FILTERED_RECORDS,
-  SORT_RECORDS
+  SORT_RECORDS,
 } from '../types';
 
 const initialState = {

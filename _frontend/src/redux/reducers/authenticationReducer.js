@@ -1,6 +1,8 @@
-import { LOGOUT, LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS } from '../types';
+import {
+  LOGOUT, LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS,
+} from '../types';
 
-let user = JSON.parse(localStorage.getItem('user'));
+const user = JSON.parse(localStorage.getItem('user'));
 const initialState = user ? { loggedIn: true, user } : {};
 
 export const authenticationReducer = (state = initialState, action) => {
@@ -8,18 +10,18 @@ export const authenticationReducer = (state = initialState, action) => {
     case LOGIN_REQUEST:
       return {
         loggingIn: true,
-        user: action.user
+        user: action.user,
       };
     case LOGIN_SUCCESS:
       return {
         loggedIn: true,
-        user: action.user
+        user: action.user,
       };
     case LOGIN_FAILURE:
       return {};
     case LOGOUT:
       return {};
     default:
-      return state
+      return state;
   }
-}
+};

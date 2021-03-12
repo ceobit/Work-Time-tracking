@@ -1,18 +1,21 @@
-import React, {useEffect, useState} from 'react';
-import {useDispatch} from 'react-redux';
-import {Link as RouterLink, withRouter} from 'react-router-dom';
-import {Container, CssBaseline, TextField} from '@material-ui/core';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link as RouterLink } from 'react-router-dom';
+import {
+  Container,
+  CssBaseline,
+  TextField,
+  Avatar,
+  Typography,
+  Grid,
+  Button,
+} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Button from '@material-ui/core/Button';
 
-import {useStyles} from './style';
-import {usersActions} from '../../redux/actions';
+import { useStyles } from './style';
+import { usersActions } from '../../redux/actions';
 
 export const RegisterPage = () => {
-
   const classes = useStyles();
 
   const [user, setUser] = useState({
@@ -20,21 +23,20 @@ export const RegisterPage = () => {
     password: '',
   });
   const [submitted, setSubmitted] = useState(false);
-  const {username, password} = user;
-  // const registering = useSelector(state => state.registrationReducer.registering);
+  const { username, password } = user;
   const dispatch = useDispatch();
 
   // reset login status
   useEffect(() => {
     dispatch(usersActions.logout());
-  }, []);
+  }, [dispatch]);
 
-  const handleChange = e => {
-    const {name, value} = e.target;
-    setUser(user => ({...user, [name]: value}));
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUser((user) => ({ ...user, [name]: value }));
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     setSubmitted(true);
@@ -45,10 +47,10 @@ export const RegisterPage = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline/>
+      <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon/>
+          <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
@@ -65,11 +67,11 @@ export const RegisterPage = () => {
                 value={username}
                 onChange={handleChange}
               />
-              {submitted && !username &&
-              <Typography variant="subtitle2" component="h1" color="error">
-                Username is required
-              </Typography>
-              }
+              {submitted && !username && (
+                <Typography variant="subtitle2" component="h1" color="error">
+                  Username is required
+                </Typography>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -83,11 +85,11 @@ export const RegisterPage = () => {
                 autoComplete="current-password"
                 onChange={handleChange}
               />
-              {submitted && !password &&
-              <Typography variant="subtitle2" component="h1" color="error">
-                Password is required
-              </Typography>
-              }
+              {submitted && !password && (
+                <Typography variant="subtitle2" component="h1" color="error">
+                  Password is required
+                </Typography>
+              )}
             </Grid>
           </Grid>
           <Button
@@ -102,7 +104,10 @@ export const RegisterPage = () => {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <RouterLink to="/"> {'Already have an account? Sign in'} </RouterLink>
+              <RouterLink to="/">
+                {' '}
+                {'Already have an account? Sign in'}{' '}
+              </RouterLink>
             </Grid>
           </Grid>
         </form>

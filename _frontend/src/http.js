@@ -1,16 +1,15 @@
-//auth
+// auth
 const login = (username, password) => {
-
   const requestOptions = {
     method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({username, password}),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password }),
   };
 
-  return fetch(`/api/signin`, requestOptions).
-    then(handleResponse).
-    then(user => {
-      // store user details and jwt token in local storage to keep user logged in between page refreshes
+  return fetch('/api/signin', requestOptions)
+    .then(handleResponse)
+    .then((user) => {
+      // store user details and jwt token in local storage to keep user logged in between page ref
       localStorage.setItem('user', JSON.stringify(user));
 
       return user;
@@ -22,82 +21,68 @@ const logout = () => {
   localStorage.removeItem('user');
 };
 
-const register = user => {
-
+const register = (user) => {
   const requestOptions = {
     method: 'POST',
-    headers: {'Content-Type': 'application/json'},
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(user),
   };
 
-  return fetch(`/api/signup`, requestOptions).then(handleResponse);
+  return fetch('/api/signup', requestOptions).then(handleResponse);
 };
 
-//Date Records
+// Date Records
 
 const createRecord = (properties) => {
-
   const requestOptions = {
     method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({...properties}),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ...properties }),
   };
 
-  return fetch(`/api/create`, requestOptions).
-    then(handleResponse).
-    then(records => {
-      return records;
-    });
+  return fetch('/api/create', requestOptions)
+    .then(handleResponse)
+    .then((records) => records);
 };
 
 const getRecords = () => {
-
   const requestOptions = {
     method: 'GET',
-    headers: {'Content-Type': 'application/json'},
+    headers: { 'Content-Type': 'application/json' },
   };
 
-  return fetch(`/api/records`, requestOptions).
-    then(handleResponse).
-    then(record => {
-      return record;
-    });
+  return fetch('/api/records', requestOptions)
+    .then(handleResponse)
+    .then((record) => record);
 };
 
 const deleteRecords = (recordId) => {
-
   const requestOptions = {
     method: 'DELETE',
-    headers: {'Content-Type': 'application/json'},
+    headers: { 'Content-Type': 'application/json' },
   };
 
-  return fetch(`/api/delete/${recordId}`, requestOptions).
-    then(handleResponse).
-    then(record => {
-      return record;
-    });
+  return fetch(`/api/delete/${recordId}`, requestOptions)
+    .then(handleResponse)
+    .then((record) => record);
 };
 
 const updateRecords = (recordId, description) => {
-
   const requestOptions = {
     method: 'PATCH',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({description}),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ description }),
   };
 
-  return fetch(`/api/patch/${recordId}`, requestOptions).
-    then(handleResponse).
-    then(record => {
-      return record;
-    });
+  return fetch(`/api/patch/${recordId}`, requestOptions)
+    .then(handleResponse)
+    .then((record) => record);
 };
 
-//Common
+// Common
 
-const handleResponse = response => {
-
-  return response.text().then(text => {
+function handleResponse(response) {
+  return response.text().then((text) => {
     const data = text && JSON.parse(text);
     if (!response.ok) {
       if (response.status === 401) {
@@ -112,7 +97,7 @@ const handleResponse = response => {
 
     return data;
   });
-};
+}
 
 export const http = {
   login,
@@ -121,5 +106,5 @@ export const http = {
   createRecord,
   getRecords,
   deleteRecords,
-  updateRecords
+  updateRecords,
 };

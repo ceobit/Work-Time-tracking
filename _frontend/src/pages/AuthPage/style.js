@@ -9,7 +9,9 @@ export const useStyles = makeStyles((theme) => ({
     backgroundImage: `url(${Image})`,
     backgroundRepeat: 'no-repeat',
     backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+      theme.palette.type === 'light'
+        ? theme.palette.grey[50]
+        : theme.palette.grey[900],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
@@ -34,5 +36,5 @@ export const useStyles = makeStyles((theme) => ({
     padding: '15px',
     display: 'inline-block',
     lineHeight: '20px',
-  }
+  },
 }));
