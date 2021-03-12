@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import { Create, Delete } from '@material-ui/icons';
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
@@ -36,16 +36,19 @@ function createData(id, description, timeInterval, duration) {
   };
 }
 
-const createRows = (records = []) => Array.from(
-  records.map((item) => createData(
-    item._id,
-    item.description,
-    `${moment(item.timeStart).format('hh:mm')} ~ ${moment(
-      item.timeFinish,
-    ).format('hh:mm')}`,
-    item.duration,
-  )),
-);
+const createRows = (records = []) =>
+  Array.from(
+    records.map((item) =>
+      createData(
+        item._id,
+        item.description,
+        `${moment(item.timeStart).format('hh:mm A')} ~ ${moment(
+          item.timeFinish
+        ).format('hh:mm A')}`,
+        item.duration
+      )
+    )
+  );
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -102,9 +105,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const {
-    classes, order, orderBy, onRequestSort,
-  } = props;
+  const { classes, order, orderBy, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -113,29 +114,31 @@ function EnhancedTableHead(props) {
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox" />
-        {headCells.map((headCell) => (!headCell.hidden ? (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'default'}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
+        {headCells.map((headCell) =>
+          !headCell.hidden ? (
+            <TableCell
+              key={headCell.id}
+              align={headCell.numeric ? 'right' : 'left'}
+              padding={headCell.disablePadding ? 'none' : 'default'}
+              sortDirection={orderBy === headCell.id ? order : false}
             >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <span className={classes.visuallyHidden}>
-                  {order === 'desc'
-                    ? 'sorted descending'
-                    : 'sorted ascending'}
-                </span>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ) : null))}
+              <TableSortLabel
+                active={orderBy === headCell.id}
+                direction={orderBy === headCell.id ? order : 'asc'}
+                onClick={createSortHandler(headCell.id)}
+              >
+                {headCell.label}
+                {orderBy === headCell.id ? (
+                  <span className={classes.visuallyHidden}>
+                    {order === 'desc'
+                      ? 'sorted descending'
+                      : 'sorted ascending'}
+                  </span>
+                ) : null}
+              </TableSortLabel>
+            </TableCell>
+          ) : null
+        )}
       </TableRow>
     </TableHead>
   );
@@ -143,10 +146,9 @@ function EnhancedTableHead(props) {
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const {
-    recordId, date, totalTime, handleSelection, chartData,
-  } = props;
+  const { recordId, date, totalTime, handleSelection, chartData } = props;
 
+  const filter = useSelector((state) => state.filter.records);
   const [numSelected, setNumSelected] = useState(props.numSelected);
   const [isEdit, setIsEdit] = useState(false);
   const [showChart, setShowChart] = useState(false);
@@ -167,8 +169,9 @@ const EnhancedTableToolbar = (props) => {
   };
 
   const handleDeleteRecord = () => {
-    dispatch(recordActions.deleteRecord(recordId)).then(() => dispatch(recordActions.getRecords()));
-    // .then(() => setNumSelected(0));
+    dispatch(recordActions.deleteRecord(recordId)).then(() =>
+      dispatch(recordActions.getRecords())
+    );
   };
 
   // show/hide chart
@@ -190,9 +193,7 @@ const EnhancedTableToolbar = (props) => {
             variant="subtitle1"
             component="div"
           >
-            {numSelected}
-            {' '}
-            selected
+            {numSelected} selected
           </Typography>
         ) : (
           <>
@@ -212,7 +213,7 @@ const EnhancedTableToolbar = (props) => {
           </>
         )}
 
-        {numSelected > 0 ? (
+        {numSelected > 0 && !filter.length ? (
           <>
             <Tooltip title="Edit">
               <IconButton aria-label="edit" onClick={handleEditRecord}>
@@ -231,9 +232,7 @@ const EnhancedTableToolbar = (props) => {
             variant="subtitle1"
             component="div"
           >
-            Total:
-            {' '}
-            {totalTime}
+            Total: {totalTime}
           </Typography>
         )}
         {isEdit && (

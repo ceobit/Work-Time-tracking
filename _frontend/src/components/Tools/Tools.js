@@ -82,7 +82,7 @@ export const Tools = () => {
           </div>
         </div>
       )}
-      {filter.length ? (
+      {filter.length && !showPicker? (
         <div className={classes.button}>
           <Button
             variant="outlined"

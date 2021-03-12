@@ -90,7 +90,7 @@ function handleResponse(response) {
         logout();
         // location.reload(true);
       }
-
+      console.log('tTESS', data, response);
       const error = (data && data.message) || response.statusText;
       return Promise.reject(error);
     }

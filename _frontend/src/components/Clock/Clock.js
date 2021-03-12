@@ -4,9 +4,9 @@ import { Button, Typography } from '@material-ui/core';
 
 import { calculate, formatDate } from '../../aux';
 import { useStyles } from './style';
-import { recordActions, timerActions } from '../../redux/actions';
+import { alertActions, recordActions, timerActions } from '../../redux/actions';
 
-export default function App({ setInputValue }) {
+export default function App({ setInputValue, inputValue }) {
   const classes = useStyles();
 
   const initialState = {
@@ -39,13 +39,21 @@ export default function App({ setInputValue }) {
   };
 
   const handleSaveTime = () => {
-    setActiveTime({ ...initialState });
-    dispatch(timerActions.createDuration(formatDate(activeTime)));
-    // promise chain
-    dispatch(recordActions.createRecord(store.getState().timer))
-      .then(() => dispatch(recordActions.getRecords()));
+    if (inputValue !== '') {
+      setActiveTime({ ...initialState });
+      dispatch(timerActions.createDuration(formatDate(activeTime)));
+      // promise chain
+      dispatch(recordActions.resetFilter());
+      dispatch(recordActions.createRecord(store.getState().timer)).then(() =>
+        dispatch(recordActions.getRecords())
+      );
 
-    setInputValue('');
+      setInputValue('');
+    } else {
+      dispatch(
+        alertActions.error('the field "What are you working on?" is require')
+      );
+    }
   };
 
   return (

@@ -24,7 +24,7 @@ export default function Timer() {
             />
           </Grid>
           <Grid container item xs={5} className={classes.clock}>
-            <Clock setInputValue={setInputValue} />
+            <Clock setInputValue={setInputValue} inputValue={inputValue} />
           </Grid>
           <Tools />
         </Grid>

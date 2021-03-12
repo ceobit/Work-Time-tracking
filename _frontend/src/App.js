@@ -23,9 +23,17 @@ export const App = () => {
     });
   }, [dispatch]);
 
+  const closeAlert = () => {
+    dispatch(alertActions.clear());
+  };
+
   return (
     <>
-      {alert.message && <Alert severity="error">{alert.message}</Alert>}
+      {alert.message && (
+        <Alert severity="error" onClose={closeAlert}>
+          {alert.message}
+        </Alert>
+      )}
       <Router history={history}>{routes}</Router>
     </>
   );
