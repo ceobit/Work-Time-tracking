@@ -19,7 +19,12 @@ export default function Input({ label, name, inputValue, setInputValue }) {
   };
 
   return (
-    <form className={classes.root} noValidate autoComplete="off" onSubmit={(e)=>    e.preventDefault()}>
+    <form
+      className={classes.root}
+      noValidate
+      autoComplete="off"
+      onSubmit={(e) => e.preventDefault()}
+    >
       <TextField
         name={name}
         value={inputValue}
