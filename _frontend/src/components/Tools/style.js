@@ -21,6 +21,7 @@ export const useStyles = makeStyles(() => ({
   },
   button: {
     height: '50%',
+    paddingRight: '1.5%'
   },
   rotate: {
     transform: 'rotate(180deg)',

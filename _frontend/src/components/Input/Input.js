@@ -3,11 +3,9 @@ import TextField from '@material-ui/core/TextField';
 import { useDispatch } from 'react-redux';
 
 import { useStyles } from './style';
-import { timerActions } from '../../redux/actions';
+import { alertActions, timerActions } from '../../redux/actions';
 
-export default function Input({
-  label, name, inputValue, setInputValue,
-}) {
+export default function Input({ label, name, inputValue, setInputValue }) {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -16,6 +14,7 @@ export default function Input({
     const { value } = e.target;
     setInputValue(value);
     dispatch(timerActions.createDescription(value));
+    name === 'task' ? dispatch(alertActions.clear()) : null;
   };
 
   return (
@@ -27,6 +26,7 @@ export default function Input({
         variant="outlined"
         size="small"
         autoFocus
+        required
         onChange={handleChange}
       />
     </form>

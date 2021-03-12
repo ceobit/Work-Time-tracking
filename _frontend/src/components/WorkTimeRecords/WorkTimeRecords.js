@@ -40,9 +40,9 @@ const createRows = (records = []) => Array.from(
   records.map((item) => createData(
     item._id,
     item.description,
-    `${moment(item.timeStart).format('hh:mm')} ~ ${moment(
+    `${moment(item.timeStart).format('hh:mm A')} ~ ${moment(
       item.timeFinish,
-    ).format('hh:mm')}`,
+    ).format('hh:mm A')}`,
     item.duration,
   )),
 );
