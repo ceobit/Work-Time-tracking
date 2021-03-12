@@ -4,6 +4,10 @@
 
 #### The fullstack time tracking app (in progress...)
 
+http://ceobit.me/
+login: Roman
+password: 123456
+
 
 <img src="./_frontend/src/images/img.png" alt="screen">
 
