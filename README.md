@@ -5,6 +5,8 @@
 #### The fullstack time tracking app (in progress...)
 
 http://ceobit.me/  
+
+demo profile:  
 login: Roman  
 password: 123456  
 
