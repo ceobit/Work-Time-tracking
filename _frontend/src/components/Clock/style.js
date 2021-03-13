@@ -7,6 +7,12 @@ export const useStyles = makeStyles((theme) => ({
     width: '100%',
     flexWrap: 'wrap',
   },
+  [theme.breakpoints.down('sm')]: {
+    button: {
+      width: '100%',
+      margin: '2% 5%',
+    },
+  },
   error: {
     fontSize: '12px',
     color: theme.palette.text.secondary,
@@ -14,5 +20,5 @@ export const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-  }
+  },
 }));
