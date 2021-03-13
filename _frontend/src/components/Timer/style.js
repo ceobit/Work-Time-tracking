@@ -24,7 +24,8 @@ export const useStyles = makeStyles((theme) => ({
       flexDirection: 'column',
       justifyContent: 'space-evenly',
       alignItems: 'center',
-      flexWrap: 'nowrap'
+      flexWrap: 'nowrap',
+      width:'100%',
     },
   },
 }));

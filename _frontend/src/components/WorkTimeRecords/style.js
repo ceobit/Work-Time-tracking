@@ -36,8 +36,7 @@ export const useStyles = makeStyles((theme) => ({
     width: '100%',
     marginBottom: theme.spacing(2),
   },
-  table: {
-  },
+  table: {},
   visuallyHidden: {
     border: 0,
     clip: 'rect(0 0 0 0)',
@@ -60,4 +59,9 @@ export const useStyles = makeStyles((theme) => ({
     whiteSpace: 'normal!important',
     wordBreak: 'break-word!important',
   },
+  [theme.breakpoints.down('sm')]: {
+    root: {
+      width: '100%',
+    }
+  }
 }));

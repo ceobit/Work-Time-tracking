@@ -62,6 +62,7 @@ export default function App({ setInputValue, inputValue }) {
         {`${formatDate(activeTime)}`}
       </Typography>
       <Button
+        className={classes.button}
         variant="contained"
         color={startTimer ? 'secondary' : 'primary'}
         onClick={handleTimer}
@@ -69,6 +70,7 @@ export default function App({ setInputValue, inputValue }) {
         {startTimer ? 'Stop' : 'Start'}
       </Button>
       <Button
+        className={classes.button}
         variant="contained"
         color="default"
         disabled={startTimer || activeTime.seconds === 0}

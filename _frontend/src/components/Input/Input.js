@@ -26,6 +26,7 @@ export default function Input({ label, name, inputValue, setInputValue }) {
       onSubmit={(e) => e.preventDefault()}
     >
       <TextField
+        className={classes.input123}
         name={name}
         value={inputValue}
         label={label}
