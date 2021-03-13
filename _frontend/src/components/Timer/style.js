@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
     marginTop: 15,
@@ -20,5 +20,11 @@ export const useStyles = makeStyles({
   },
   default: {
     padding: '0',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
+      flexWrap: 'nowrap'
+    },
   },
-});
+}));

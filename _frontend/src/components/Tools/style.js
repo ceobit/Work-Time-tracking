@@ -1,10 +1,13 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles((theme) => ({
   tools: {
     display: 'flex',
     justifyContent: 'flex-end',
     width: '100%',
+    [theme.breakpoints.down('sm')]: {
+     display: 'none'
+    }
   },
   tool: {
     padding: '0',
