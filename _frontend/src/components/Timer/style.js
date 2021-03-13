@@ -4,9 +4,12 @@ export const useStyles = makeStyles({
   root: {
     minWidth: 275,
     marginTop: 15,
-    width: '50vw',
+    width: '45vw',
     margin: '0 auto',
     padding: '0',
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    flexWrap: 'wrap',
   },
   title: {
     fontSize: 14,

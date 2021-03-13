@@ -17,7 +17,7 @@ export const useToolbarStyles = makeStyles((theme) => ({
   },
   totalTime: {
     justifyContent: 'right',
-    width: '19%',
+    width: '20%',
     fontSize: '14px',
   },
   chart: {
@@ -29,7 +29,7 @@ export const useToolbarStyles = makeStyles((theme) => ({
 
 export const useStyles = makeStyles((theme) => ({
   root: {
-    width: '50vw',
+    width: '45vw',
     margin: '25px auto',
   },
   paper: {
@@ -56,7 +56,7 @@ export const useStyles = makeStyles((theme) => ({
     color: '#181934!important',
   },
   cell: {
-    width: '300px',
+    width: '40%',
     whiteSpace: 'normal!important',
     wordBreak: 'break-word!important',
   },

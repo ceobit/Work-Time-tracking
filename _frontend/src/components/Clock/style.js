@@ -5,6 +5,7 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-around',
     width: '100%',
+    flexWrap: 'wrap',
   },
   error: {
     fontSize: '12px',
