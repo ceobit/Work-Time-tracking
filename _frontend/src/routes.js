@@ -5,21 +5,7 @@ import { AuthPage } from './pages/AuthPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { MainPage } from './pages/MainPage';
 
-export const useRoutes = (isAuth) => {
-  if (isAuth) {
-    return (
-      <Switch>
-        <Route path="/main" component={MainPage} />
-        <Route path="/register">
-          <RegisterPage />
-        </Route>
-        <Route path="/">
-          <AuthPage />
-        </Route>
-        <Redirect to="/" />
-      </Switch>
-    );
-  }
+export const useRoutes = () => {
   return (
     <Switch>
       <Route path="/" exact component={AuthPage} />

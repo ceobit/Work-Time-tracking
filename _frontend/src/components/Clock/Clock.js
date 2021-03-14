@@ -24,11 +24,10 @@ export default function App({ setInputValue, inputValue }) {
   const calculateTime = useCallback(calculate(activeTime), [activeTime]);
 
   useEffect(() => {
-    if (startTimer) {
+    startTimer &&
       setTimeout(() => {
         setActiveTime(calculateTime);
       }, 1000);
-    }
   }, [activeTime, startTimer, calculateTime]);
 
   const handleTimer = () => {
@@ -42,12 +41,11 @@ export default function App({ setInputValue, inputValue }) {
     if (inputValue !== '') {
       setActiveTime({ ...initialState });
       dispatch(timerActions.createDuration(formatDate(activeTime)));
-      // promise chain
       dispatch(recordActions.resetFilter());
+      // promise chain
       dispatch(recordActions.createRecord(store.getState().timer)).then(() =>
         dispatch(recordActions.getRecords())
       );
-
       setInputValue('');
     } else {
       dispatch(
