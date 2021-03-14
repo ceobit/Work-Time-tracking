@@ -9,7 +9,7 @@ export default function Input({ label, name, inputValue, setInputValue }) {
   const classes = useStyles();
 
   const dispatch = useDispatch();
-  const alert = useSelector((state) => state.alertReducer.message);
+  const alert = useSelector((state) => state.alert.message);
 
   const handleChange = (e) => {
     const { value } = e.target;

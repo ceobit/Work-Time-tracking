@@ -8,11 +8,10 @@ import { useRoutes } from './routes';
 import './App.css';
 import { alertActions } from './redux/actions';
 
-// eslint-disable-next-line import/prefer-default-export
 export const App = () => {
   const routes = useRoutes();
 
-  const alert = useSelector((state) => state.alertReducer);
+  const alert = useSelector((state) => state.alert);
   const dispatch = useDispatch();
 
   useEffect(() => {

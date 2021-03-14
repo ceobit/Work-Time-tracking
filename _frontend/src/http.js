@@ -32,7 +32,6 @@ const register = (user) => {
 };
 
 // Date Records
-
 const createRecord = (properties) => {
   const requestOptions = {
     method: 'POST',
@@ -80,7 +79,6 @@ const updateRecords = (recordId, description) => {
 };
 
 // Common
-
 function handleResponse(response) {
   return response.text().then((text) => {
     const data = text && JSON.parse(text);

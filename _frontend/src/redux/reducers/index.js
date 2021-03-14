@@ -11,9 +11,9 @@ import { updateReducer } from './updateReducer';
 import { filterReducer } from './filterReducer';
 
 const rootReducer = combineReducers({
-  registrationReducer,
+  registration: registrationReducer,
   authentication: authenticationReducer,
-  alertReducer,
+  alert:alertReducer,
   timer: timerReducer,
   fetched_records: fetchReducer,
   records: recordReducer,
