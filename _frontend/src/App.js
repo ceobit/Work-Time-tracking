@@ -12,7 +12,7 @@ import { alertActions } from './redux/actions';
 export const App = () => {
   const routes = useRoutes();
 
-  const alert = useSelector((state) => state.alertReducer);
+  const alert = useSelector((state) => state.alert);
   const dispatch = useDispatch();
 
   useEffect(() => {
