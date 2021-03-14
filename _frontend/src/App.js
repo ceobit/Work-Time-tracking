@@ -8,7 +8,6 @@ import { useRoutes } from './routes';
 import './App.css';
 import { alertActions } from './redux/actions';
 
-// eslint-disable-next-line import/prefer-default-export
 export const App = () => {
   const routes = useRoutes();
 
