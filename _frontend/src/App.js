@@ -10,8 +10,7 @@ import { alertActions } from './redux/actions';
 
 // eslint-disable-next-line import/prefer-default-export
 export const App = () => {
-  const loggingIn = useSelector((state) => state.authentication.loggingIn);
-  const routes = useRoutes(loggingIn);
+  const routes = useRoutes();
 
   const alert = useSelector((state) => state.alertReducer);
   const dispatch = useDispatch();

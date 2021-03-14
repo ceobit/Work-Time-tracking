@@ -25,7 +25,7 @@ export const useStyles = makeStyles((theme) => ({
       justifyContent: 'space-evenly',
       alignItems: 'center',
       flexWrap: 'nowrap',
-      width:'100%',
+      width: '100%',
     },
   },
 }));
