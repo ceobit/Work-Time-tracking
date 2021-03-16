@@ -19,7 +19,7 @@ export const Bar = () => {
   const user = useSelector((state) => state.authentication.user.user);
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} data-test="app-bar">
       <AppBar position="static">
         <Toolbar>
           <IconButton
