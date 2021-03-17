@@ -16,7 +16,7 @@ const setUp = (props = {}) => {
 
   return mount(
     <Provider store={store}>
-      <Bar {...props} />
+      <Bar />
     </Provider>
   );
 };
