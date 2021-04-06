@@ -9,6 +9,10 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.1",
+    "@types/jest": "^26.0.22",
+    "@types/node": "^14.14.37",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
     "date-fns": "^2.19.0",
     "history": "^4.10.1",
     "moment": "^2.29.1",
@@ -50,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-redux": "^7.1.16",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.4.1",
     "clsx": "^1.1.1",
     "enzyme": "^3.11.0",

@@ -13,7 +13,7 @@ import { filterReducer } from './filterReducer';
 const rootReducer = combineReducers({
   registration: registrationReducer,
   authentication: authenticationReducer,
-  alert:alertReducer,
+  alert: alertReducer,
   timer: timerReducer,
   fetched_records: fetchReducer,
   records: recordReducer,
